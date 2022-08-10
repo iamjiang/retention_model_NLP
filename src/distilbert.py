@@ -341,12 +341,16 @@ def main(args,train_data, test_data):
             best_metric=selected_metric
             accelerator.wait_for_everyone()
             unwrapped_model = accelerator.unwrap_model(model)
-            unwrapped_model.save_pretrained(args.output_dir, save_function=accelerator.save)
+            # unwrapped_model.save_pretrained(args.output_dir, save_function=accelerator.save)
+            torch.save(unwrapped_model.state_dict(), os.path.join(args.output_dir, args.model_output_name))
+            # checkpoint=torch.load(os.path.join(args.output_dir, args.model_output_name))
+            # model=CustomBERTModel(args)
+            # model.load_state_dict(checkpoint)
             if accelerator.is_main_process:
                 tokenizer.save_pretrained(args.output_dir)
                 accelerator.print("")
                 logger.info(f'Performance improve after epoch: {epoch+1} ... ')
-                accelerator.print("")                
+                accelerator.print("")                 
 
 
 if __name__=="__main__":
