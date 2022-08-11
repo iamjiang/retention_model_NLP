@@ -59,7 +59,7 @@ def seed_everything(seed):
     np.random.seed(seed)
     os.environ['PYTHONHASHSEED'] = str(seed)
     
-
+    
 def main(args,train_data, test_data):
     train_data.set_format(type="pandas")
     df_train=train_data[:]
@@ -77,16 +77,11 @@ def main(args,train_data, test_data):
     
     tokenizer=AutoTokenizer.from_pretrained(args.model_checkpoint)
     model=AutoModelForSequenceClassification.from_pretrained(args.model_checkpoint)
-    
-    modules = [model.longformer.embeddings, *model.longformer.encoder.layer[:args.frozen_layers]] 
-    for module in modules:
-        for param in module.parameters():
-            param.requires_grad = False
 
     print()
     print(f"The maximal # input tokens : {tokenizer.model_max_length:,}")
     print(f"Vocabulary size : {tokenizer.vocab_size:,}")
-    print(f"The # of parameters to be updated : {sum([p.nelement() for p in model.parameters() if p.requires_grad==True]):,}")
+    print(f"The # of parameters : {sum([p.nelement() for p in model.parameters()]):,}")
     print()
     
     train_module=utils.Loader_Creation(train_data, tokenizer,args.feature_name)
@@ -304,54 +299,50 @@ def main(args,train_data, test_data):
 
 
 if __name__=="__main__":
-    parser = argparse.ArgumentParser(description='Longformer Model')
+    parser = argparse.ArgumentParser(description='BERT Model')
     parser.add_argument('--gpus', type=int, default=[0,1], nargs='+', help='used gpu')
     parser.add_argument("--shuffle_train",  type=bool,default=True,help="shuffle data or not")
     parser.add_argument("--validation_split",  type=float,default=0.2,help="The split ratio for validation dataset")
-    parser.add_argument("--loss_weight",  action='store_true', help="weight for unbalance data")
+    parser.add_argument("--loss_weight", action='store_true', help="weight for unbalance data")
     parser.add_argument("--train_negative_positive_ratio",  type=int,default=4,help="Undersampling negative vs position ratio in training")
     parser.add_argument("--test_negative_positive_ratio",  type=int,default=10,help="Undersampling negative vs position ratio in test set")
     parser.add_argument("--seed",  type=int,default=101,
             help="random seed for np.random.seed, torch.manual_seed and torch.cuda.manual_seed.")
 
     parser.add_argument("--truncation_strategy", type=str, default="tail",help="how to truncate the long length email")
-    parser.add_argument("--max_length", type=int, default=4096,help="maximal input length")
-    parser.add_argument("--batch_size", type=int, default=3)
-    parser.add_argument('--num_epochs', type=int, default=5)
+    parser.add_argument("--batch_size", type=int, default=2)
+    parser.add_argument('--num_epochs', type=int, default=10)
     parser.add_argument("--gradient_accumulation_steps",type=int,default=8,
                                help="Number of updates steps to accumulate before performing a backward/update pass.")
     parser.add_argument('--lr', type=float, default=2e-5, help="learning rate")
     parser.add_argument('--lr_scheduler_type', type=str, default="linear")
-#     parser.add_argument('--lr_scheduler_type', type=str, default="cosine")
+    #     parser.add_argument('--lr_scheduler_type', type=str, default="cosine")
     parser.add_argument("--fp16", action="store_true", help="If passed, will use FP16 training.")
     parser.add_argument('--use_schedule', action="store_true")
     parser.add_argument("--weight_decay", default=1e-4, type=float, help="Weight decay if we apply some.")
     parser.add_argument("--adam_epsilon", default=1e-8, type=float, help="Epsilon for Adam optimizer.")
     parser.add_argument("--warmup_ratio", default=0.4, type=float, help="Linear warmup over warmup_steps.")
-    parser.add_argument('--model_checkpoint', type=str, default="allenai/longformer-base-4096")
-    parser.add_argument("--output_dir", default=os.path.join(os.getcwd(),"longformer_repo"), type=str, help="output folder name")
-    parser.add_argument("--model_output_name", default="longformer", type=str)
+    parser.add_argument('--model_checkpoint', type=str, default="bert-base-uncased")
+    parser.add_argument("--output_dir", default=os.path.join(os.getcwd(),"bert_repo"), type=str, help="output folder name")
+    parser.add_argument("--model_output_name", default="bert", type=str)
     parser.add_argument("--feature_name", default="Full_TextBody", type=str)
-    parser.add_argument("--data", default="Latest_TextBody_truncation_tail_longformer", type=str)
-    parser.add_argument("--frozen_layers", type=int, default=6,help="freeze layers without gradient updates")    
-    
-        
-    args = parser.parse_args()
-    
-    args.model_output_name=f'{args.model_output_name}_{args.feature_name}_output'
-    args.output_dir=f'{args.output_dir}_{args.feature_name}'
-    
+    parser.add_argument("--data", default="Full_TextBody_truncation_tail_bert", type=str)
+
+    args,_ = parser.parse_known_args()
+
+    args.model_output_name=f'{args.model_output_name}_{args.feature_name}_{args.truncation_strategy}'
+    args.output_dir=f'{args.output_dir}_{args.feature_name}_{args.truncation_strategy}'
+
     seed_everything(args.seed)
-    
+
     print()
     print(args)
     print()
-    
+
     data_dir=os.path.join(os.getcwd(),"dataset",args.data)
-    # data_dir=os.path.join(os.getcwd(),"dataset","email_all")
     email_all=load_from_disk(data_dir)
     email_all=email_all.filter(lambda x: x[args.feature_name]!=None)
-
+    
 #     tokenizer=AutoTokenizer.from_pretrained(args.model_checkpoint)
 
 #     email_all=email_all.map(lambda x: tokenizer(x[args.feature_name]),batched=True)
@@ -379,12 +370,14 @@ if __name__=="__main__":
 #     email_all=email_all.remove_columns(columns_to_remove)
 #     email_all=email_all.rename_column("truncated_text", args.feature_name)
     
-    # train_data=email_all['train'].shuffle(seed=101).select(range(len(email_all["train"])))
-    # # train_data=email_all['train']
-    # test_data=email_all['test']
-    train_data=email_all['train'].shuffle(seed=101).select(range(1200))
-    test_data=email_all['test'].shuffle(seed=101).select(range(500))
+    train_data=email_all['train'].shuffle(seed=101).select(range(len(email_all["train"])))
+    # train_data=email_all['train']
+    test_data=email_all['test']
     
+    len(email_all["train"])
+    # train_data=email_all['train'].shuffle(seed=101).select(range(1200))
+#     test_data=email_all['test'].shuffle(seed=101).select(range(500))
+
     os.environ['CUDA_VISIBLE_DEVICES'] = ','.join(str(x) for x in args.gpus)
     # print(f"The number of GPUs is {torch.cuda.device_count()}")
     if torch.cuda.is_available():    
@@ -399,6 +392,6 @@ if __name__=="__main__":
         print('No GPU available, using the CPU instead.')
         device = torch.device("cpu")
 
+
     
     main(args,train_data, test_data)
-    

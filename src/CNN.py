@@ -39,6 +39,23 @@ import torchtext.vocab as vocab
 
 import utils
 
+from gensim import corpora
+from gensim.utils import simple_preprocess
+import nltk
+from nltk.corpus import stopwords
+nltk.download('stopwords')
+nltk.download('punkt')
+from nltk.tokenize import word_tokenize
+from gensim.parsing.preprocessing import remove_stopwords
+from gensim.parsing.preprocessing import STOPWORDS
+all_stopwords_gensim = STOPWORDS.union(set(['thank','thanks', 'you', 'help','questions','a.m.','p.m.','friday','thursday','wednesday','tuesday','monday',\
+                                            'askunum','email','askunum.com','unum','askunumunum.com','day','use', 'appreciate','available','mailtoaskunumunum.com',\
+                                            'hello','hi','online','?','.','. .','phone','needs','need','let','know','service','information','time','meet','client',\
+                                           'team','ask','file','date','opportunity','original','benefit','eastern','specialists','specialist','attached','experienced',\
+                                            'benefits insurance','employee','click','organization','httpsbit.lycjrbm',  'received', 'billing', 'manager', 'assist', \
+                                            'additional', 'response']))
+
+
 import warnings
 warnings.filterwarnings("ignore")
 
@@ -267,7 +284,10 @@ def main(args,train_data, test_data, device):
     df_train=utils.under_sampling(df_train,'churn', args.random_seed, args.train_negative_positive_ratio)
     df_test=utils.under_sampling(df_test,'churn', args.random_seed, args.test_negative_positive_ratio)
     df_train.reset_index(drop=True, inplace=True)
-    df_test.reset_index(drop=True, inplace=True)   
+    df_test.reset_index(drop=True, inplace=True) 
+    
+    df_train[args.feature_name] = df_train[args.feature_name].apply(lambda x: ' '.join([word for word in x.split() if word not in (all_stopwords_gensim)]))
+    df_test[args.feature_name] = df_test[args.feature_name].apply(lambda x: ' '.join([word for word in x.split() if word not in (all_stopwords_gensim)]))
     
     custom_embeddings = vocab.Vectors(name="glove.6B.300d.txt", cache=os.getcwd())
     

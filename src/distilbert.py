@@ -350,7 +350,7 @@ def main(args,train_data, test_data):
                 tokenizer.save_pretrained(args.output_dir)
                 accelerator.print("")
                 logger.info(f'Performance improve after epoch: {epoch+1} ... ')
-                accelerator.print("")                 
+                accelerator.print("")                   
 
 
 if __name__=="__main__":
@@ -450,5 +450,3 @@ if __name__=="__main__":
 
     
     main(args,train_data, test_data)
-    
-    

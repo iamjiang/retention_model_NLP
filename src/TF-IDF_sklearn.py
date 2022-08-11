@@ -13,6 +13,8 @@ import time
 import datetime
 import random
 import math
+
+from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import roc_auc_score, f1_score,average_precision_score
 from sklearn.metrics import precision_recall_fscore_support 
 from sklearn.metrics import precision_recall_curve
@@ -37,19 +39,6 @@ from torch.utils.data import DataLoader, RandomSampler, SequentialSampler, Subse
 
 from gensim import corpora
 from gensim.utils import simple_preprocess
-import nltk
-from nltk.corpus import stopwords
-nltk.download('stopwords')
-nltk.download('punkt')
-from nltk.tokenize import word_tokenize
-from gensim.parsing.preprocessing import remove_stopwords
-from gensim.parsing.preprocessing import STOPWORDS
-all_stopwords_gensim = STOPWORDS.union(set(['thank','thanks', 'you', 'help','questions','a.m.','p.m.','friday','thursday','wednesday','tuesday','monday',\
-                                            'askunum','email','askunum.com','unum','askunumunum.com','day','use', 'appreciate','available','mailtoaskunumunum.com',\
-                                            'hello','hi','online','?','.','. .','phone','needs','need','let','know','service','information','time','meet','client',\
-                                           'team','ask','file','date','opportunity','original','benefit','eastern','specialists','specialist','attached','experienced',\
-                                            'benefits insurance','employee','click','organization','httpsbit.lycjrbm',  'received', 'billing', 'manager', 'assist', \
-                                            'additional', 'response']))
 
 import warnings
 warnings.filterwarnings("ignore")
@@ -100,11 +89,9 @@ class TFIDF_Classifier(nn.Module):  # inheriting from nn.Module!
         # needs to be done everytime in the nn.module derived class
         super(TFIDF_Classifier, self).__init__()
         
-        self.dropout=nn.Dropout(args.keep_probab)
-
+        self.args=args
+        self.dropout=nn.Dropout(self.args.keep_probab)
         # Define the parameters that are needed for linear model ( Ax + b)
-        # self.linear_1 = nn.Linear(vocab_size, 300)
-        # self.linear_2 = nn.Linear(300, num_labels)
         self.linear = nn.Linear(vocab_size, num_labels)
 
         # NOTE! The non-linearity log softmax does not have parameters! So we don't need
@@ -114,42 +101,39 @@ class TFIDF_Classifier(nn.Module):  # inheriting from nn.Module!
         # Pass the input through the linear layer,
         # then pass that through log_softmax.
         
-        # bow_vec=self.linear_1(bow_vec)
-        # bow_vec=self.linear_2(bow_vec)
-        
         bow_vec=self.dropout(bow_vec)
-        bow_vec=self.linear(bow_vec)
         
-        return F.log_softmax(bow_vec, dim=1)
+        # clf = LogisticRegression(penalty='l2', C=1.0, random_state=0, max_iter=1000).fit(X, y)
+        # clf.predict(X[:2, :])
+        # clf.predict_proba(X[:2, :])
 
-def eval_func(data_loader,model,device,num_classes=2,loss_weight=None):
+        return self.linear(bow_vec)
+        # return F.log_softmax(self.linear(bow_vec), dim=1)
+
+def eval_func(data_loader,model,clf,device):
     model.eval()
     fin_targets=[]
     fin_outputs=[]
-    losses=[]
+    scores=[]
     
     model=model.to(device)
-#     for batch_idx, batch in enumerate(data_loader):
     batch_idx=0
     for bow_vec, target in tqdm(data_loader, position=0, leave=True):
-        bow_vec=bow_vec.to(device)
-        target=target.to(device)
-        with torch.no_grad():
-            logits = model(bow_vec.float())
-        if loss_weight is None:
-            loss = F.cross_entropy(logits.view(-1, num_classes).to(device), target)
-        else:
-            loss = F.cross_entropy(logits.view(-1, num_classes).to(device), 
-                                   target, weight=loss_weight.float().to(device))
-            
-        losses.append(loss.item())
+        X = model(bow_vec.float())
+        y=target.to(device)
         
-        fin_targets.append(target.cpu().detach().numpy())
-        fin_outputs.append(torch.softmax(logits.view(-1, num_classes),dim=1).cpu().detach().numpy())   
+        X=X.cpu().detach().numpy()
+        y=y.cpu().detach().numpy()
+            
+        scores.append(clf.score(X, y))
+        pred=clf.predict_proba(X)
+        
+        fin_targets.append(y)
+        fin_outputs.append(pred)   
 
         batch_idx+=1
 
-    return np.concatenate(fin_outputs), np.concatenate(fin_targets), losses
+    return np.concatenate(fin_outputs), np.concatenate(fin_targets), scores
 
 def main(args,train_data, test_data, device):
     train_data.set_format(type="pandas")
@@ -166,21 +150,18 @@ def main(args,train_data, test_data, device):
     train_idx=np.arange(df_train.shape[0])
     test_idx=np.arange(df_test.shape[0]) + df_train.shape[0]
     df=pd.concat([df_train,df_test])
-    
-    df[args.feature_name] = df[args.feature_name].apply(lambda x: ' '.join([word for word in x.split() if word not in (all_stopwords_gensim)]))
 
     def dummy_fun(doc):
         return doc.split()
 
-    vectorizer = TfidfVectorizer(input="content",analyzer='word',tokenizer=dummy_fun,max_features=args.max_features)
-    # vectorizer = TfidfVectorizer(input="content",analyzer='word',tokenizer=dummy_fun)
+    vectorizer = TfidfVectorizer(input="content",analyzer='word',tokenizer=dummy_fun)
     vectorizer.fit(df[args.feature_name])
     df_tfidf = vectorizer.transform(df[args.feature_name])
     df_tfidf = df_tfidf.toarray()
     vocab = vectorizer.get_feature_names()
     vocab = np.array(vocab)
     df_tfidf = pd.DataFrame(df_tfidf,columns=vocab)
-
+    
     LABEL=df["churn"].values.squeeze()
     train_label=LABEL[train_idx]
     test_label=LABEL[test_idx]
@@ -196,10 +177,6 @@ def main(args,train_data, test_data, device):
         loss_weight=None
         
     vocab_size=df_tfidf.shape[1]
-
-    print()
-    print("The total # of vocaburary is {:,}".format(vocab_size) )
-    print()
     
     model = TFIDF_Classifier(num_classes, vocab_size, args)
     model.to(device)
@@ -242,7 +219,7 @@ def main(args,train_data, test_data, device):
     # training loop
     # best_metric = float('inf')
     best_metric = 0
-    losses=[]
+    scores=[]
 
     for epoch in tqdm(range(0,args.n_epochs)):
 
@@ -260,24 +237,24 @@ def main(args,train_data, test_data, device):
 
         for step, (bow_vec, target) in enumerate(train_dl):
 
-            logits = model(bow_vec.float())
+            X = model(bow_vec.float())
+            y=target.to(device)
+            
+            X=X.cpu().detach().numpy()
+            y=y.cpu().detach().numpy()
 
             if loss_weight is None:
-                loss = F.cross_entropy(logits.view(-1, num_classes), target.to(device))
+                clf = LogisticRegression(penalty='l2', C=args.C, random_state=0, max_iter=5000).fit(X, y)
             else:
-                loss = F.cross_entropy(logits.view(-1, num_classes), target.to(device),weight=loss_weight.float())
+                clf = LogisticRegression(penalty='l2', C=args.C, random_state=0, max_iter=5000,class_weight={0:loss_weight[0],1:loss_weight[1]}).fit(X, y)
 
-            loss.backward()
-            optimizer.step()
-    #         scheduler.step()
-            optimizer.zero_grad()
-            losses.append(loss.item())
+            scores.append(clf.score(X, y))
 
             t1 = time.time()
             if step%(len(train_dl)//10)==0 and not step==0:
                 elapsed=utils.format_time(t1-t0)
-                print("Batch {:} of {:} | Loss {:.6f}  | Elapsed: {:}".\
-                      format(step,len(train_dl),np.mean(losses),elapsed))    
+                print("Batch {:} of {:} | Score {:.3f}  | Elapsed: {:}".\
+                      format(step,len(train_dl),np.mean(scores[-10:]),elapsed))    
 
         model.eval()
         print()
@@ -285,27 +262,23 @@ def main(args,train_data, test_data, device):
         print("Running Validation on training set")
         print("")
         t1=time.time()
-        train_pred,train_target,train_losses=eval_func(train_dl,
-                                                       model,
-                                                       device,
-                                                       num_classes=num_classes, 
-                                                       loss_weight=loss_weight)
+        train_pred,train_target,train_score=eval_func(train_dl,model,clf,device)
 
-        avg_train_loss=np.mean(train_losses)
+        avg_train_score=np.mean(train_score)
         train_output=utils.model_evaluate(train_target.reshape(-1),train_pred)
 
         t2=time.time()
 
-        print("avg_loss: {:.6f} | True_Prediction: {:,} | False_Prediction: {:,} | accuracy: {:.2%} |  precision: {:.2%} | recall: {:.2%} | F1_score: {:.2%} \
-        ROC_AUC: {:.1%} | PR_AUC: {:.1%} | Elapsed: {:}".format(avg_train_loss, train_output["true_prediction"], train_output["false_prediction"], train_output["accuracy"], \
+        print("avg_score: {:.2f} | True_Prediction: {:,} | False_Prediction: {:,} | accuracy: {:.2%} |  precision: {:.2%} | recall: {:.2%} | F1_score: {:.2%} \
+        ROC_AUC: {:.1%} | PR_AUC: {:.1%} | Elapsed: {:}".format(avg_train_score, train_output["true_prediction"], train_output["false_prediction"], train_output["accuracy"], \
                                                                 train_output["precision"], train_output["recall"], train_output["f1_score"], \
                                                                 train_output["AUC"], train_output["pr_auc"], utils.format_time(t2-t1)))
 
         gain_1=train_output["GAIN"]["1%"]
         gain_5=train_output["GAIN"]["5%"]
         gain_10=train_output["GAIN"]["10%"]
-        with open(os.path.join(os.getcwd(),"training_out.txt"),'a') as f:
-            f.write(f'{args.model_output_name},{epoch},{avg_train_loss},{train_output["true_prediction"]},{train_output["false_prediction"]},{train_output["accuracy"]},{train_output["precision"]},{train_output["recall"]},\
+        with open(os.path.join(os.getcwd(),"metrics_training.txt"),'a') as f:
+            f.write(f'{args.model_output_name},{epoch},{avg_train_score},{train_output["true_prediction"]},{train_output["false_prediction"]},{train_output["accuracy"]},{train_output["precision"]},{train_output["recall"]},\
             {train_output["f1_score"]},{gain_1},{gain_5},{gain_10},{train_output["AUC"]},{train_output["pr_auc"]}\n')
                   
         #====================================#
@@ -317,34 +290,29 @@ def main(args,train_data, test_data, device):
         print("")
         print("Running Validation on test set")
         print("")
+        test_pred,test_target,test_score=eval_func(test_dl,model,clf,device)
 
-        test_pred,test_target,test_losses=eval_func(test_dl,
-                                                       model,
-                                                       device,
-                                                       num_classes=num_classes, 
-                                                       loss_weight=loss_weight)
-
-        avg_test_loss=np.mean(test_losses)
+        avg_test_score=np.mean(test_score)
         test_output=utils.model_evaluate(test_target.reshape(-1),test_pred)
 
         t3=time.time()
 
-        print("avg_loss: {:.6f} | True_Prediction: {:,} | False_Prediction: {:,} | accuracy: {:.2%} |  precision: {:.2%} | recall: {:.2%} | F1_score: {:.2%} \
-        ROC_AUC: {:.1%} | PR_AUC: {:.1%} | Elapsed: {:}".format(avg_test_loss, test_output["true_prediction"], test_output["false_prediction"], test_output["accuracy"], \
+        print("avg_score: {:.2f} | True_Prediction: {:,} | False_Prediction: {:,} | accuracy: {:.2%} |  precision: {:.2%} | recall: {:.2%} | F1_score: {:.2%} \
+        ROC_AUC: {:.1%} | PR_AUC: {:.1%} | Elapsed: {:}".format(avg_test_score, test_output["true_prediction"], test_output["false_prediction"], test_output["accuracy"], \
                                                                 test_output["precision"], test_output["recall"], test_output["f1_score"], \
                                                                 test_output["AUC"], test_output["pr_auc"], utils.format_time(t3-t2)))
 
         gain_1=test_output["GAIN"]["1%"]
         gain_5=test_output["GAIN"]["5%"]
         gain_10=test_output["GAIN"]["10%"]
-        with open(os.path.join(os.getcwd(),"test_out.txt"),'a') as f:
-            f.write(f'{args.model_output_name},{epoch},{avg_test_loss},{test_output["true_prediction"]},{test_output["false_prediction"]},{test_output["accuracy"]},{test_output["precision"]},{test_output["recall"]},\
+        with open(os.path.join(os.getcwd(),"metrics_test.txt"),'a') as f:
+            f.write(f'{args.model_output_name},{epoch},{avg_test_score},{test_output["true_prediction"]},{test_output["false_prediction"]},{test_output["accuracy"]},{test_output["precision"]},{test_output["recall"]},\
             {test_output["f1_score"]},{gain_1},{gain_5},{gain_10},{test_output["AUC"]},{test_output["pr_auc"]}\n')    
     
         if not os.path.exists(args.output_dir):
             os.makedirs(args.output_dir)
             
-        selected_metric=test_output["AUC"]
+        selected_metric=avg_test_score
         if selected_metric>best_metric:
             best_metric=selected_metric
             torch.save(model,os.path.join(args.output_dir,"tfidf.pt"))
@@ -372,14 +340,13 @@ if __name__=="__main__":
 #     parser.add_argument('--batch_size', type=int, default=128)
 
     parser.add_argument('--keep_probab', type=float, default=0.2, help="Dropout rate")
-
-    parser.add_argument('--n_epochs', type=int, default=10)
+    parser.add_argument('--C', type=float, default=0.2, help="regularization strength")
     
+    parser.add_argument('--n_epochs', type=int, default=10)
     parser.add_argument('--loss_weight',  action='store_true')
     parser.add_argument("--feature_name", default="Full_TextBody", type=str)
     parser.add_argument("--model_output_name", default="TF-IDF", type=str)
     parser.add_argument("--output_dir", default=os.path.join(os.getcwd(),"TF-IDF"), type=str, help="output folder name")
-    parser.add_argument('--max_features', type=int, default=10000)
     
     args= parser.parse_args()
     
@@ -396,9 +363,8 @@ if __name__=="__main__":
     email_all=load_from_disk(data_dir)
     email_all=email_all.filter(lambda x: x[args.feature_name]!=None)
     
-    train_data=email_all['train'].shuffle(seed=101).select(range(len(email_all["train"])))
-    # train_data=email_all['train']
-    test_data=email_all['test'].shuffle(seed=101).select(range(len(email_all["test"])))
+    train_data=email_all['train']
+    test_data=email_all['test']
 #     train_data=email_all['train'].shuffle(seed=101).select(range(1200))
 #     test_data=email_all['test'].shuffle(seed=101).select(range(500))
     

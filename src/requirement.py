@@ -4,6 +4,7 @@ os.system("pip install awscli")
 os.system("pip install boto3")
 os.system("pip install s3fs")
 
+os.system("pip install allennlp")
 os.system("pip install gensim")
 os.system("pip install spacy")
 os.system("python -m spacy download en_core_web_md")
