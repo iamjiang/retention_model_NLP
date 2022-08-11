@@ -3,7 +3,7 @@ CUDA_VISIBLE_DEVICES=0 python 04_model_train_longformer_v1.py \
 --gpus 0 \
 --batch_size 6 \
 --gradient_accumulation_steps 8 \
---num_epochs 10 \
+--num_epochs 5 \
 --fp16 \
 --loss_weight \
 --lr 3e-5 \
