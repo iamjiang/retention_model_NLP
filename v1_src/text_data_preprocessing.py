@@ -102,39 +102,45 @@ def askunum_textbody(args):
 
     askunum_text['TextBody'] = askunum_text['TextBody'].fillna("").astype(str).str.lower()
     askunum_text['TextBody'] = askunum_text['TextBody'].apply(lambda x: x.split('from:')[0])  # split by from:
+    askunum_text['TextBody'] = askunum_text['TextBody'].str.replace(r'http\S+', '', regex=True)  # remove URL link
+    
+    # askunum_text['TextBody'] = askunum_text['TextBody'].str.replace(r"\n{1,}", "\n")
 
     # remove phrases
     phrases = [
               'caution external email: this email originated from outside of the organization. do not click links or open attachments unless you recognize the sender and know the content is safe.', 
-              'this message originated outside of unum. use caution when opening attachments, clicking links or responding to requests for information'
+              'this message originated outside of unum. use caution when opening attachments, clicking links or responding to requests for information',
               'this email message and its attachments are for the sole use of the intended recipient or recipients and may contain confidential information. if you have received this email in error, please notify the sender and delete this message.',
+        'if you have any questions, we have experienced service specialists available to help you monday through friday','original message','BenefitMall Customer Service'
         ]
 
     for p in phrases:
         askunum_text['TextBody']= askunum_text['TextBody'].str.replace(p, ' ', regex=False)
-
-    askunum_text['TextBody'] = askunum_text['TextBody'].str.replace('[^A-Za-z\s\.,;?]', '', regex=True) # replace non-alphanumeric with space
-
-    # askunum_text['TextBody'] = askunum_text['TextBody'].str.replace(r"\s{2,}", " ")  # remove multiple space
-    # askunum_text['TextBody'] = askunum_text['TextBody'].str.replace(r"\n{1,}", " ")  # remove multiple line breaker
-    # askunum_text['TextBody'] = askunum_text['TextBody'].str.replace(r"\t{1,}", " ")  # remove multiple tab
-    # askunum_text['TextBody'] = askunum_text['TextBody'].str.replace(r"(\s\.){2,}", "")  # #convert pattern really. . . . . . .  gotcha  into really. gotcha
-    # askunum_text['TextBody'] = askunum_text['TextBody'].str.replace(r"[original message]", "")  # remove original message
-
-
-    # replace special
-    for s in ['\n', '\t', '\r', '\b', '\f']:
-        askunum_text['TextBody'] = askunum_text['TextBody'].str.replace(s, ' ', regex=False)
-
-
-    askunum_text['TextBody'] = askunum_text['TextBody'].str.replace(r'[ ]+', ' ', regex=True) # replace more than one space with a single space
-
+        
+    def remove_layout(text):
+        x=[i for i in text.split("\n") if len(i.split())>=10] # remove layout information (short-text)
+        return "\n".join(x)
+    
     def remove_long_txt(text):
-        x=[i for i in text.split() if len(i)<=30] # remove long text
-        x=[i for i in x if i not in ["re","original message","original message."]] # remove "original message" and "re"
+        x=[i for i in text.split() if len(i)<=20] # remove long text
         return " ".join(x)
-
+    
+    askunum_text['TextBody'] = askunum_text['TextBody'].apply(remove_layout)
     askunum_text['TextBody'] = askunum_text['TextBody'].apply(remove_long_txt)
+    
+    askunum_text['TextBody'] = askunum_text['TextBody'].apply(remove_layout)
+    
+    askunum_text['TextBody'] = askunum_text['TextBody'].str.replace("[^A-Za-z\s\d+\/\d+\/\d+\.\-,;?'\"%$]", '', regex=True) # replace non-alphanumeric with space
+    
+    askunum_text['TextBody'] = askunum_text['TextBody'].str.replace(r"\s{2,}", " ", regex=True)  # remove multiple space
+    askunum_text['TextBody'] = askunum_text['TextBody'].str.replace(r"\n{1,}", " ", regex=True)  # remove multiple line breaker
+    askunum_text['TextBody'] = askunum_text['TextBody'].str.replace(r"\t{1,}", " ", regex=True)  # remove multiple tab
+
+
+    # # replace special
+    # for s in ['\n', '\t', '\r', '\b', '\f']:
+    #     askunum_text['TextBody'] = askunum_text['TextBody'].str.replace(s, ' ', regex=False)
+    # askunum_text['TextBody'] = askunum_text['TextBody'].str.replace(r'[ ]+', ' ', regex=True) # replace more than one space with a single space
     
     # ## removing non-english words from text
     # words = set(nltk.corpus.words.words())
