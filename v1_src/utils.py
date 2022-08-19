@@ -154,7 +154,7 @@ def eval_func(data_loader,model,device,num_classes=2,loss_weight=None):
         batch={k:v.type(torch.LongTensor).to(device) for k,v in batch.items()}
         with torch.no_grad():
             outputs=model(**batch)
-        logits=outputs['logits']
+        logits=outputs.loss['logits']
         if loss_weight is None:
             loss = F.cross_entropy(logits.view(-1, num_classes).to(device), 
                                    batch["labels"])

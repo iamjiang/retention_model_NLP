@@ -67,10 +67,11 @@ def main(args,train_data, test_data):
     df_test=test_data[:]
     
     ## undersample netative sample so that the negative/positive=4
-    df_train=utils.under_sampling(df_train,'churn', args.seed, args.train_negative_positive_ratio)
-    df_test=utils.under_sampling(df_test,'churn', args.seed, args.test_negative_positive_ratio)
-    df_train.reset_index(drop=True, inplace=True)
-    df_test.reset_index(drop=True, inplace=True)
+    if args.undersampling:
+        df_train=utils.under_sampling(df_train,'churn', args.seed, args.train_negative_positive_ratio)
+        df_test=utils.under_sampling(df_test,'churn', args.seed, args.test_negative_positive_ratio)
+        df_train.reset_index(drop=True, inplace=True)
+        df_test.reset_index(drop=True, inplace=True)
     
     train_data=Dataset.from_pandas(df_train)
     test_data=Dataset.from_pandas(df_test)
@@ -202,16 +203,13 @@ def main(args,train_data, test_data):
             batch={k:v.type(torch.LongTensor).to(accelerator.device) for k,v in batch.items()}
             outputs=model(**batch)
 #             loss=outputs.loss
-            logits=outputs['logits']
-            
-#             print(step,outputs,logits.view(-1, num_classes))
+            logits=outputs.loss['logits']
             
             if loss_weight is None:
-                loss = F.cross_entropy(logits.view(-1, num_classes).to(accelerator.device), 
-                                       batch["labels"])
+                loss = F.cross_entropy(logits.view(-1, num_classes).to(accelerator.device),batch["labels"])
             else:
-                loss = F.cross_entropy(logits.view(-1, num_classes).to(accelerator.device), 
-                                       batch["labels"], weight=loss_weight.float().to(accelerator.device)) 
+                loss = F.cross_entropy(logits.view(-1, num_classes).to(accelerator.device),batch["labels"], \
+                                       weight=loss_weight.float().to(accelerator.device)) 
             
             accelerator.backward(loss)
             if (step+1)%args.gradient_accumulation_steps == 0 or step==len(train_dataloader)-1:
@@ -304,6 +302,7 @@ if __name__=="__main__":
     parser.add_argument("--shuffle_train",  type=bool,default=True,help="shuffle data or not")
     parser.add_argument("--validation_split",  type=float,default=0.2,help="The split ratio for validation dataset")
     parser.add_argument("--loss_weight", action='store_true', help="weight for unbalance data")
+    parser.add_argument("--undersampling", action="store_true", help="undersampling or not")
     parser.add_argument("--train_negative_positive_ratio",  type=int,default=4,help="Undersampling negative vs position ratio in training")
     parser.add_argument("--test_negative_positive_ratio",  type=int,default=10,help="Undersampling negative vs position ratio in test set")
     parser.add_argument("--seed",  type=int,default=101,
@@ -317,7 +316,7 @@ if __name__=="__main__":
     parser.add_argument('--lr', type=float, default=2e-5, help="learning rate")
     parser.add_argument('--lr_scheduler_type', type=str, default="linear")
     #     parser.add_argument('--lr_scheduler_type', type=str, default="cosine")
-    parser.add_argument("--fp16", action="store_true", help="If passed, will use FP16 training.")
+    parser.add_argument("--fp16", action="store_true", help="If passed, will use FP16 training.")    
     parser.add_argument('--use_schedule', action="store_true")
     parser.add_argument("--weight_decay", default=1e-4, type=float, help="Weight decay if we apply some.")
     parser.add_argument("--adam_epsilon", default=1e-8, type=float, help="Epsilon for Adam optimizer.")
@@ -327,8 +326,9 @@ if __name__=="__main__":
     parser.add_argument("--model_output_name", default="bert", type=str)
     parser.add_argument("--feature_name", default="Full_TextBody", type=str)
     parser.add_argument("--data", default="Full_TextBody_truncation_tail_bert", type=str)
-
-    args,_ = parser.parse_known_args()
+    parser.add_argument("--frozen_layers", type=int, default=6,help="freeze layers without gradient updates")
+    
+    args= parser.parse_args()
 
     args.model_output_name=f'{args.model_output_name}_{args.feature_name}_{args.truncation_strategy}'
     args.output_dir=f'{args.output_dir}_{args.feature_name}_{args.truncation_strategy}'
@@ -371,12 +371,10 @@ if __name__=="__main__":
 #     email_all=email_all.rename_column("truncated_text", args.feature_name)
     
     train_data=email_all['train'].shuffle(seed=101).select(range(len(email_all["train"])))
-    # train_data=email_all['train']
-    test_data=email_all['test']
+    test_data=email_all['test'].shuffle(seed=101).select(range(len(email_all["test"])))
     
-    len(email_all["train"])
     # train_data=email_all['train'].shuffle(seed=101).select(range(1200))
-#     test_data=email_all['test'].shuffle(seed=101).select(range(500))
+    # test_data=email_all['test'].shuffle(seed=101).select(range(500))
 
     os.environ['CUDA_VISIBLE_DEVICES'] = ','.join(str(x) for x in args.gpus)
     # print(f"The number of GPUs is {torch.cuda.device_count()}")

@@ -280,11 +280,11 @@ def main(args,train_data, test_data, device):
     test_data.set_format(type="pandas")
     df_test=test_data[:]
     
-    ## undersample netative sample so that the negative/positive=4
-    df_train=utils.under_sampling(df_train,'churn', args.random_seed, args.train_negative_positive_ratio)
-    df_test=utils.under_sampling(df_test,'churn', args.random_seed, args.test_negative_positive_ratio)
-    df_train.reset_index(drop=True, inplace=True)
-    df_test.reset_index(drop=True, inplace=True) 
+    if args.undersampling:
+        df_train=utils.under_sampling(df_train,'churn', args.random_seed, args.train_negative_positive_ratio)
+        df_test=utils.under_sampling(df_test,'churn', args.random_seed, args.test_negative_positive_ratio)
+        df_train.reset_index(drop=True, inplace=True)
+        df_test.reset_index(drop=True, inplace=True) 
     
     df_train[args.feature_name] = df_train[args.feature_name].apply(lambda x: ' '.join([word for word in x.split() if word not in (all_stopwords_gensim)]))
     df_test[args.feature_name] = df_test[args.feature_name].apply(lambda x: ' '.join([word for word in x.split() if word not in (all_stopwords_gensim)]))
@@ -490,6 +490,7 @@ if __name__=="__main__":
     parser.add_argument('--test_batch_size', type=int, default=64)
     parser.add_argument('--random_seed', type=int, default=101)
     parser.add_argument('--is_pretrain_embedding',  action='store_true')
+    parser.add_argument("--undersampling", action="store_true", help="undersampling or not")
     parser.add_argument("--train_negative_positive_ratio",  type=int,default=3,help="Undersampling negative vs position ratio in training")
     parser.add_argument("--test_negative_positive_ratio",  type=int,default=3,help="Undersampling negative vs position ratio in test set")
     parser.add_argument('--learning_rate', type=float, default=1e-4)

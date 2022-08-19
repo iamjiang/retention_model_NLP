@@ -1,0 +1,16 @@
+CUDA_VISIBLE_DEVICES=1 python bert_base.py \
+--feature_name Latest_TextBody  \
+--gpus 1 \
+--batch_size 24 \
+--gradient_accumulation_steps 2 \
+--num_epochs 5 \
+--fp16 \
+--loss_weight \
+--truncation_strategy tail \
+--lr 3e-5 \
+--weight_decay 0 \
+--use_schedule \
+--model_checkpoint roberta-base \
+--output_dir /home/ec2-user/SageMaker/retention_model_NLP/v1_src/roberta_repo \
+--model_output_name roberta \
+--data Latest_TextBody_truncation_tail_roberta

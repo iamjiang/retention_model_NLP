@@ -66,11 +66,11 @@ def main(args,train_data, test_data):
     test_data.set_format(type="pandas")
     df_test=test_data[:]
     
-    ## undersample netative sample so that the negative/positive=4
-    df_train=utils.under_sampling(df_train,'churn', args.seed, args.train_negative_positive_ratio)
-    df_test=utils.under_sampling(df_test,'churn', args.seed, args.test_negative_positive_ratio)
-    df_train.reset_index(drop=True, inplace=True)
-    df_test.reset_index(drop=True, inplace=True)
+    if args.undersampling:
+        df_train=utils.under_sampling(df_train,'churn', args.seed, args.train_negative_positive_ratio)
+        df_test=utils.under_sampling(df_test,'churn', args.seed, args.test_negative_positive_ratio)
+        df_train.reset_index(drop=True, inplace=True)
+        df_test.reset_index(drop=True, inplace=True)
     
     train_data=Dataset.from_pandas(df_train)
     test_data=Dataset.from_pandas(df_test)
@@ -78,7 +78,7 @@ def main(args,train_data, test_data):
     tokenizer=AutoTokenizer.from_pretrained(args.model_checkpoint)
     model=AutoModelForSequenceClassification.from_pretrained(args.model_checkpoint)
     
-    modules = [model.longformer.embeddings, *model.longformer.encoder.layer[:args.frozen_layers]] 
+    modules = [model.base_model.embeddings, *model.base_model.encoder.layer[:args.frozen_layers]] 
     for module in modules:
         for param in module.parameters():
             param.requires_grad = False
@@ -207,7 +207,7 @@ def main(args,train_data, test_data):
             batch={k:v.type(torch.LongTensor).to(accelerator.device) for k,v in batch.items()}
             outputs=model(**batch)
 #             loss=outputs.loss
-            logits=outputs['logits']
+            logits=outputs.loss['logits']
             
 #             print(step,outputs,logits.view(-1, num_classes))
             
@@ -309,6 +309,7 @@ if __name__=="__main__":
     parser.add_argument("--shuffle_train",  type=bool,default=True,help="shuffle data or not")
     parser.add_argument("--validation_split",  type=float,default=0.2,help="The split ratio for validation dataset")
     parser.add_argument("--loss_weight",  action='store_true', help="weight for unbalance data")
+    parser.add_argument("--undersampling", action="store_true", help="undersampling or not")
     parser.add_argument("--train_negative_positive_ratio",  type=int,default=4,help="Undersampling negative vs position ratio in training")
     parser.add_argument("--test_negative_positive_ratio",  type=int,default=10,help="Undersampling negative vs position ratio in test set")
     parser.add_argument("--seed",  type=int,default=101,
@@ -379,11 +380,10 @@ if __name__=="__main__":
 #     email_all=email_all.remove_columns(columns_to_remove)
 #     email_all=email_all.rename_column("truncated_text", args.feature_name)
     
-    # train_data=email_all['train'].shuffle(seed=101).select(range(len(email_all["train"])))
-    # # train_data=email_all['train']
-    # test_data=email_all['test']
-    train_data=email_all['train'].shuffle(seed=101).select(range(1200))
-    test_data=email_all['test'].shuffle(seed=101).select(range(500))
+    train_data=email_all['train'].shuffle(seed=101).select(range(len(email_all["train"])))
+    test_data=email_all['test'].shuffle(seed=101).select(range(len(email_all["test"])))
+    # train_data=email_all['train'].shuffle(seed=101).select(range(1200))
+    # test_data=email_all['test'].shuffle(seed=101).select(range(500))
     
     os.environ['CUDA_VISIBLE_DEVICES'] = ','.join(str(x) for x in args.gpus)
     # print(f"The number of GPUs is {torch.cuda.device_count()}")

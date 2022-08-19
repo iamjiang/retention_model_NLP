@@ -157,11 +157,11 @@ def main(args,train_data, test_data, device):
     test_data.set_format(type="pandas")
     df_test=test_data[:]
     
-    ## undersample netative sample so that the negative/positive=4
-    df_train=utils.under_sampling(df_train,'churn', args.random_seed, args.train_negative_positive_ratio)
-    df_test=utils.under_sampling(df_test,'churn', args.random_seed, args.test_negative_positive_ratio)
-    df_train.reset_index(drop=True, inplace=True)
-    df_test.reset_index(drop=True, inplace=True)
+    if args.undersampling:
+        df_train=utils.under_sampling(df_train,'churn', args.random_seed, args.train_negative_positive_ratio)
+        df_test=utils.under_sampling(df_test,'churn', args.random_seed, args.test_negative_positive_ratio)
+        df_train.reset_index(drop=True, inplace=True)
+        df_test.reset_index(drop=True, inplace=True)
     
     train_idx=np.arange(df_train.shape[0])
     test_idx=np.arange(df_test.shape[0]) + df_train.shape[0]
@@ -311,7 +311,7 @@ def main(args,train_data, test_data, device):
         gain_1=train_output["GAIN"]["1%"]
         gain_5=train_output["GAIN"]["5%"]
         gain_10=train_output["GAIN"]["10%"]
-        with open(os.path.join(os.getcwd(),"training_out.txt"),'a') as f:
+        with open(os.path.join(os.getcwd(),"metrics_training.txt"),'a') as f:
             f.write(f'{args.model_output_name},{epoch},{avg_train_loss},{train_output["true_prediction"]},{train_output["false_prediction"]},{train_output["accuracy"]},{train_output["precision"]},{train_output["recall"]},\
             {train_output["f1_score"]},{gain_1},{gain_5},{gain_10},{train_output["AUC"]},{train_output["pr_auc"]}\n')
                   
@@ -344,7 +344,7 @@ def main(args,train_data, test_data, device):
         gain_1=test_output["GAIN"]["1%"]
         gain_5=test_output["GAIN"]["5%"]
         gain_10=test_output["GAIN"]["10%"]
-        with open(os.path.join(os.getcwd(),"test_out.txt"),'a') as f:
+        with open(os.path.join(os.getcwd(),"metrics_test.txt"),'a') as f:
             f.write(f'{args.model_output_name},{epoch},{avg_test_loss},{test_output["true_prediction"]},{test_output["false_prediction"]},{test_output["accuracy"]},{test_output["precision"]},{test_output["recall"]},\
             {test_output["f1_score"]},{gain_1},{gain_5},{gain_10},{test_output["AUC"]},{test_output["pr_auc"]}\n')    
     
@@ -370,7 +370,7 @@ if __name__=="__main__":
     parser.add_argument('--train_batch_size', type=int, default=128)
     parser.add_argument('--test_batch_size', type=int, default=128)
     parser.add_argument('--random_seed', type=int, default=101)
-    
+    parser.add_argument("--undersampling", action="store_true", help="undersampling or not")
     parser.add_argument("--train_negative_positive_ratio",  type=int,default=4,help="Undersampling negative vs position ratio in training")
     parser.add_argument("--test_negative_positive_ratio",  type=int,default=10,help="Undersampling negative vs position ratio in test set")
     parser.add_argument('--learning_rate', type=float, default=1e-4)

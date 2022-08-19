@@ -1,4 +1,4 @@
-CUDA_VISIBLE_DEVICES=1 python 04_model_train_longformer_v1.py \
+CUDA_VISIBLE_DEVICES=1 python longformer.py \
 --feature_name Client_TextBody  \
 --gpus 1 \
 --batch_size 6 \
@@ -12,6 +12,6 @@ CUDA_VISIBLE_DEVICES=1 python 04_model_train_longformer_v1.py \
 --train_negative_positive_ratio 3 \
 --test_negative_positive_ratio 3 \
 --max_length 4096 \
---data Client_TextBody_truncation_tail_longformer
+--data Client_TextBody_truncation_tail_longformer \
 --frozen_layers 6
 
