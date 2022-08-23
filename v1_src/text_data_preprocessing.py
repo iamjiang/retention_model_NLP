@@ -108,15 +108,93 @@ def askunum_textbody(args):
 
     # remove phrases
     phrases = [
-              'caution external email: this email originated from outside of the organization. do not click links or open attachments unless you recognize the sender and know the content is safe.', 
+              'caution external email: this email originated from outside of the organization. do not click links or open attachments unless you recognize the sender and know the content is safe.', 'this information is for official use only',
               'this message originated outside of unum. use caution when opening attachments, clicking links or responding to requests for information',
               'this email message and its attachments are for the sole use of the intended recipient or recipients and may contain confidential information. if you have received this email in error, please notify the sender and delete this message.',
-        'if you have any questions, we have experienced service specialists available to help you monday through friday','original message','BenefitMall Customer Service'
+        'this email and any files transmitted with it are confidential and intended solely for the use of the individual or entity to whom they are addressed',
+        'unauthorized disclosure or misuse of this personal information including, but not limited to copying, disclosure, distribution, is strictly prohibited, and may result in criminal and/or civil penalties',
+        'if you have any questions, we have experienced service specialists available to help you monday through friday','original message','BenefitMall Customer Service',
+        'please let us know if there is anything else that we can assist you with',
+        'we appreciate the opportunity to meet your benefit needs',
+        '8 a.m. to 8 p.m. eastern time','eastern','8 a.m. to 8 p.m.',
+        'thank you for contacting ask unum','it was my pleasure to assist you today',
+        'i hope my email finds you well',
+        'please feel free to let us know if there is anything further we may assist you with',
+        'please let us know if we can be of further assistance',
+        'click here','thank you for your email'
         ]
-
+    
     for p in phrases:
         askunum_text['TextBody']= askunum_text['TextBody'].str.replace(p, ' ', regex=False)
         
+    askunum_text['TextBody'] = askunum_text['TextBody'].str.replace("`", "'")  
+    
+    appos = {
+    "aren't" : "are not",
+    "can't" : "cannot",
+    "couldn't" : "could not",
+    "didn't" : "did not",
+    "doesn't" : "does not",
+    "don't" : "do not",
+    "hadn't" : "had not",
+    "hasn't" : "has not",
+    "haven't" : "have not",
+    "he'd" : "he would",
+    "he'll" : "he will",
+    "he's" : "he is",
+    "i'd" : "i would",
+    "i'd" : "i had",
+    "i'll" : "i will",
+    "i'm" : "i am",
+    "isn't" : "is not",
+    "it's" : "it is",
+    "it'll":"it will",
+    "i've" : "i have",
+    "let's" : "let us",
+    "mightn't" : "might not",
+    "mustn't" : "must not",
+    "shan't" : "shall not",
+    "she'd" : "she would",
+    "she'll" : "she will",
+    "she's" : "she is",
+    "shouldn't" : "should not",
+    "that's" : "that is",
+    "there's" : "there is",
+    "they'd" : "they would",
+    "they'll" : "they will",
+    "they're" : "they are",
+    "they've" : "they have",
+    "we'd" : "we would",
+    "we're" : "we are",
+    "weren't" : "were not",
+    "we've" : "we have",
+    "what'll" : "what will",
+    "what're" : "what are",
+    "what's" : "what is",
+    "what've" : "what have",
+    "where's" : "where is",
+    "who'd" : "who would",
+    "who'll" : "who will",
+    "who're" : "who are",
+    "who's" : "who is",
+    "who've" : "who have",
+    "won't" : "will not",
+    "wouldn't" : "would not",
+    "you'd" : "you would",
+    "you'll" : "you will",
+    "you're" : "you are",
+    "you've" : "you have",
+    "'re": " are",
+    "wasn't": "was not",
+    "we'll":" will",
+    "didn't": "did not"
+    }
+
+    def remove_appos(text):
+        text = [appos[word] if word in appos else word for word in text.lower().split()]
+        text = " ".join(text)
+        return text
+    
     def remove_layout(text):
         x=[i for i in text.split("\n") if len(i.split())>=10] # remove layout information (short-text)
         return "\n".join(x)
@@ -125,10 +203,9 @@ def askunum_textbody(args):
         x=[i for i in text.split() if len(i)<=20] # remove long text
         return " ".join(x)
     
-    askunum_text['TextBody'] = askunum_text['TextBody'].apply(remove_layout)
-    askunum_text['TextBody'] = askunum_text['TextBody'].apply(remove_long_txt)
-    
-    askunum_text['TextBody'] = askunum_text['TextBody'].apply(remove_layout)
+    askunum_text['TextBody'] = askunum_text['TextBody'].progress_apply(remove_appos)
+    askunum_text['TextBody'] = askunum_text['TextBody'].progress_apply(remove_layout)
+    askunum_text['TextBody'] = askunum_text['TextBody'].progress_apply(remove_long_txt)
     
     askunum_text['TextBody'] = askunum_text['TextBody'].str.replace("[^A-Za-z\s\d+\/\d+\/\d+\.\-,;?'\"%$]", '', regex=True) # replace non-alphanumeric with space
     
