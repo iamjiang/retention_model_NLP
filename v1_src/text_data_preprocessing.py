@@ -203,11 +203,9 @@ def askunum_textbody(args):
         x=[i for i in text.split() if len(i)<=20] # remove long text
         return " ".join(x)
     
-    askunum_text['TextBody'] = askunum_text['TextBody'].apply(remove_appos)
-    askunum_text['TextBody'] = askunum_text['TextBody'].apply(remove_layout)
-    askunum_text['TextBody'] = askunum_text['TextBody'].apply(remove_long_txt)
-    
-    askunum_text['TextBody'] = askunum_text['TextBody'].apply(remove_layout)
+    askunum_text['TextBody'] = askunum_text['TextBody'].progress_apply(remove_appos)
+    askunum_text['TextBody'] = askunum_text['TextBody'].progress_apply(remove_layout)
+    askunum_text['TextBody'] = askunum_text['TextBody'].progress_apply(remove_long_txt)
     
     askunum_text['TextBody'] = askunum_text['TextBody'].str.replace("[^A-Za-z\s\d+\/\d+\/\d+\.\-,;?'\"%$]", '', regex=True) # replace non-alphanumeric with space
     
