@@ -141,8 +141,8 @@ def askunum_textbody(args):
         ]
     
     for p in phrases:
-        askunum_text['TextBody']= askunum_text['TextBody'].str.replace(p, ' ', regex=False)
-        
+        askunum_text['TextBody']= askunum_text['TextBody'].str.replace(p, ' ')
+
     askunum_text['TextBody'] = askunum_text['TextBody'].str.replace("`", "'")  
     
     appos = {
