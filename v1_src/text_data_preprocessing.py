@@ -108,10 +108,20 @@ def askunum_textbody(args):
 
     # remove phrases
     phrases = [
-              'caution external email: this email originated from outside of the organization. do not click links or open attachments unless you recognize the sender and know the content is safe.', 
+              'caution external email: this email originated from outside of the organization. do not click links or open attachments unless you recognize the sender and know the content is safe.', 'this information is for official use only',
               'this message originated outside of unum. use caution when opening attachments, clicking links or responding to requests for information',
               'this email message and its attachments are for the sole use of the intended recipient or recipients and may contain confidential information. if you have received this email in error, please notify the sender and delete this message.',
-        'if you have any questions, we have experienced service specialists available to help you monday through friday','original message','BenefitMall Customer Service'
+        'this email and any files transmitted with it are confidential and intended solely for the use of the individual or entity to whom they are addressed',
+        'unauthorized disclosure or misuse of this personal information including, but not limited to copying, disclosure, distribution, is strictly prohibited, and may result in criminal and/or civil penalties',
+        'if you have any questions, we have experienced service specialists available to help you monday through friday','original message','BenefitMall Customer Service',
+        'please let us know if there is anything else that we can assist you with',
+        'we appreciate the opportunity to meet your benefit needs',
+        '8 a.m. to 8 p.m. eastern time','eastern','8 a.m. to 8 p.m.',
+        'thank you for contacting ask unum','it was my pleasure to assist you today',
+        'i hope my email finds you well',
+        'please feel free to let us know if there is anything further we may assist you with',
+        'please let us know if we can be of further assistance',
+        'click here','thank you for your email'
         ]
 
     for p in phrases:
