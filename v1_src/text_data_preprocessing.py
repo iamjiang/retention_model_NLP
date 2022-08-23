@@ -75,8 +75,9 @@ def askunum_textbody(args):
         message_date= 'MessageDate'
     
     askunum_text = load_askunum_df(args.input_dir, args.year, usecols = [idx, parent_id, text_body, created_date, closed_date, Incoming, subtype,message_date], nrows=args.nrows)
-    askunum_text.rename(dict(zip([idx, parent_id, text_body, created_date, closed_date, Incoming, subtype,message_date], ['Id', 'ParentId', 'TextBody', \
-                                                                                                                         'CreatedDate','ClosedDate','Incoming','Subtype','MessageDate'])), axis=1,inplace=True)
+    askunum_text.rename(dict(zip([idx, parent_id, text_body, created_date, closed_date, Incoming, subtype,message_date],
+                                 ['Id', 'ParentId', 'TextBody', 'CreatedDate','ClosedDate','Incoming','Subtype','MessageDate'])), 
+                        axis=1,inplace=True)
 
     askunum_text['CreatedDate'] = pd.to_datetime(askunum_text['CreatedDate'])
     askunum_text['year'] = askunum_text.CreatedDate.apply(lambda x: x.year)
@@ -87,12 +88,19 @@ def askunum_textbody(args):
 
     askunum_text = pd.merge(askunum_text, account_mapping, on='ParentId',how="inner")
 
-    askunum_text["account_id"]=askunum_text["account_id"].apply(lambda x: x[:-3])
+    askunum_text["account_id"]=askunum_text["account_id"].progress_apply(lambda x: x[:-3])
 
     unum_id_mapping=pd.read_csv(args.input_dir + 'retentionAskUnumcrosswalk.csv', encoding='latin-1', usecols=['Account ID', 'UNUM ID']).drop_duplicates().dropna()
     unum_id_mapping.rename(dict(zip(['Account ID', 'UNUM ID'], ['account_id','unum_id'])), axis=1, inplace=True)
     askunum_text = pd.merge(askunum_text, unum_id_mapping, on='account_id',how="inner")
-    askunum_text["unum_id"]=askunum_text["unum_id"].astype(str)
+    
+    def format_mixed_id(id_val):
+        try:
+            return str(int(id_val))
+        except: 
+            return str(id_val)
+        
+    askunum_text["unum_id"]=askunum_text["unum_id"].progress_apply(format_mixed_id)
 
     # policy_id_mapping=pd.read_csv(args.input_dir + "PolicyData.csv", encoding='latin-1',usecols=["unum_client_id","policy_id"],nrows=None)
     # policy_id_mapping.rename({"unum_client_id":"unum_id"},axis=1,inplace=True)
@@ -101,27 +109,35 @@ def askunum_textbody(args):
     askunum_text.drop_duplicates(inplace=True)
 
     askunum_text['TextBody'] = askunum_text['TextBody'].fillna("").astype(str).str.lower()
-    askunum_text['TextBody'] = askunum_text['TextBody'].apply(lambda x: x.split('from:')[0])  # split by from:
+    askunum_text['TextBody'] = askunum_text['TextBody'].progress_apply(lambda x: x.split('from:')[0])  # split by from:
     askunum_text['TextBody'] = askunum_text['TextBody'].str.replace(r'http\S+', '', regex=True)  # remove URL link
     
     # askunum_text['TextBody'] = askunum_text['TextBody'].str.replace(r"\n{1,}", "\n")
 
     # remove phrases
-    phrases = [
-              'caution external email: this email originated from outside of the organization. do not click links or open attachments unless you recognize the sender and know the content is safe.', 'this information is for official use only',
-              'this message originated outside of unum. use caution when opening attachments, clicking links or responding to requests for information',
-              'this email message and its attachments are for the sole use of the intended recipient or recipients and may contain confidential information. if you have received this email in error, please notify the sender and delete this message.',
-        'this email and any files transmitted with it are confidential and intended solely for the use of the individual or entity to whom they are addressed',
-        'unauthorized disclosure or misuse of this personal information including, but not limited to copying, disclosure, distribution, is strictly prohibited, and may result in criminal and/or civil penalties',
-        'if you have any questions, we have experienced service specialists available to help you monday through friday','original message','BenefitMall Customer Service',
-        'please let us know if there is anything else that we can assist you with',
-        'we appreciate the opportunity to meet your benefit needs',
-        '8 a.m. to 8 p.m. eastern time','eastern','8 a.m. to 8 p.m.',
-        'thank you for contacting ask unum','it was my pleasure to assist you today',
-        'i hope my email finds you well',
-        'please feel free to let us know if there is anything further we may assist you with',
-        'please let us know if we can be of further assistance',
-        'click here','thank you for your email'
+    phrases = ['caution external email: this email originated from outside of the organization', 
+               'do not click links or open attachments unless you recognize the sender and know the content is safe', 
+               'this information is for official use only',
+               'this message originated outside of unum. use caution when opening attachments, clicking links or responding to requests for information',
+               'this email message and its attachments are for the sole use of the intended recipient or recipients and may contain confidential information',
+               'if you have received this email in error, please notify the sender and delete this message',
+               'this email and any files transmitted with it are confidential and intended solely for the use of the individual or entity to whom they are addressed',
+               'unauthorized disclosure or misuse of this personal information including, but not limited to copying, disclosure, distribution, is strictly prohibited, and may result in criminal and/or civil penalties',
+               'if you have any questions, we have experienced service specialists available to help you monday through friday',
+               'original message',
+               'BenefitMall Customer Service',
+               'please let us know if there is anything else that we can assist you with',
+               'we appreciate the opportunity to meet your benefit needs',
+               '8 a.m. to 8 p.m. eastern time',
+               'eastern',
+               '8 a.m. to 8 p.m.',
+               'thank you for contacting ask unum',
+               'it was my pleasure to assist you today',
+               'i hope my email finds you well',
+               'please feel free to let us know if there is anything further we may assist you with',
+               'please let us know if we can be of further assistance',
+               'click here',
+               'thank you for your email'
         ]
     
     for p in phrases:
