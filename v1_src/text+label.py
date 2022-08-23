@@ -8,7 +8,7 @@ import os
 import pickle
 from tqdm import tqdm
 tqdm.pandas(position=0,leave=True)
-
+from collections import Counter
 import textwrap
 
 def main(args,churn_df,text_df):
@@ -32,7 +32,10 @@ def main(args,churn_df,text_df):
     Full_TextBody=[]
     Client_TextBody=[]
     Latest_TextBody=[]
-    Subtype=[]
+    EMAIL_COUNT=[]
+    ISSUE_COUNT=[]
+    DURATION=[]
+    SUBTYPE=[]
     churn=[]
 
     # text_df.loc[:,'day']=1
@@ -42,19 +45,24 @@ def main(args,churn_df,text_df):
     for index,row in tqdm(churn_df.iterrows(), total=churn_df.shape[0]):
 
         ### Concatenate email message between start_date and end_date
-        tempt=text_df[(text_df["unum_id"]==row["unum_id"]) & (pd.to_datetime(text_df["MessageDate"]).dt.date>=row["start_date"]) &  (pd.to_datetime(text_df["MessageDate"]).dt.date<=row["end_date"])]
+        tempt=text_df[(text_df["unum_id"]==row["unum_id"]) & (pd.to_datetime(text_df["MessageDate"]).dt.date>=row["start_date"]) & \
+                      (pd.to_datetime(text_df["MessageDate"]).dt.date<=row["end_date"])]
         tempt.dropna(subset=["TextBody"],inplace=True)
 
         if tempt.empty:
             continue
 
         tempt.sort_values(["unum_id","MessageDate"],inplace=True,ascending=True)
-        tempt2=tempt.drop_duplicates(subset=["unum_id"],keep="last")
-        Subtype.append(tempt.drop_duplicates(subset=["unum_id"],keep="last")["Subtype"].values[0])
+        
+        subtype=Counter(tempt[tempt["Incoming"]==True].Subtype.values)
+        email_counts = tempt[tempt["Incoming"]==True].shape[0]
+        issue_counts = tempt["ParentId"].unique().shape[0]
+        tempt['askunum_days'] = (pd.to_datetime(tempt['ClosedDate']) - pd.to_datetime(tempt['CreatedDate'])).apply(lambda x: (x.days * 24 + x.seconds / 3600)/24)
+        tempt2=tempt.drop_duplicates(subset=["ParentId"])
+        duration=np.sum(tempt2['askunum_days'].values)
 
         tempt_1=tempt.groupby(["unum_id"])["TextBody"].apply(lambda x : ".".join(x)).reset_index()
         Full_TextBody.append(tempt_1["TextBody"][0])
-
 
         tempt_2=tempt[tempt["Incoming"]==True]
         tempt_2=tempt_2.groupby(["unum_id"])["TextBody"].apply(lambda x : ".".join(x)).reset_index()
@@ -71,6 +79,11 @@ def main(args,churn_df,text_df):
         else:
             Latest_TextBody.append(tempt_3["TextBody"][0])        
 
+        EMAIL_COUNT.append(email_counts)
+        ISSUE_COUNT.append(issue_counts)
+        DURATION.append(duration)
+        SUBTYPE.append(subtype)
+    
         unum_id.append(row["unum_id"])
         policy_id.append(row["policy_id"])
         pivot_date.append(row["pivot_date"])
@@ -79,9 +92,13 @@ def main(args,churn_df,text_df):
         start_date.append(row["start_date"])
         end_date.append(row["end_date"])
         churn.append(row["churn"])
+        
     churn_text_data=pd.DataFrame({"unum_id":unum_id,"policy_id":policy_id,"pivot_date":pivot_date,"year":year,"month":month,\
                                  "start_date":start_date,"end_date":end_date,"Full_TextBody":Full_TextBody,"Client_TextBody":Client_TextBody,\
-                                  "Latest_TextBody":Latest_TextBody,"Subtype":Subtype,"churn":churn})
+                                  "Latest_TextBody":Latest_TextBody,"email_counts":EMAIL_COUNT,"issue_counts":ISSUE_COUNT,"duration":DURATION,"subtype":SUBTYPE,"churn":churn})
+    
+    ## drop data if Client email is None
+    churn_text_data.dropna(subset=["Client_TextBody"],inplace=True)
     
     # churn_text_data.drop_duplicates(inplace=True)
     churn_text_data.sort_values(by=["unum_id","policy_id","year","month"],ascending=False,inplace=True)
