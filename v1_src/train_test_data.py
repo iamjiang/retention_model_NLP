@@ -9,24 +9,20 @@ from datasets import load_from_disk
 from tqdm import tqdm
 tqdm.pandas(position=0,leave=True)
 
-from transformers import AutoTokenizer
-
 my_folder="s3://trident-retention-output/"
 folder = 's3://trident-retention-data/askunum/'
 
 churn_text_pickle=pd.read_pickle(os.path.join(my_folder, "churn_text_pickle_v1"))
-for i in range(2,11):
+for i in tqdm(range(2,11)):
     X=pd.read_pickle(os.path.join(my_folder, f"churn_text_pickle_v{i}"))
     churn_text_pickle=pd.concat([churn_text_pickle,X])
     
 churn_text_pickle=churn_text_pickle[churn_text_pickle['Full_TextBody']!='original message'] ## there are a few observations that have textbody=='original message'
 
 
-model_checkpoint="allenai/longformer-base-4096"
-tokenizer=AutoTokenizer.from_pretrained(model_checkpoint)
-
-usecols=['Full_TextBody', 'Client_TextBody', 'Latest_TextBody', 'year','churn']
+usecols=['unum_id','policy_id','Full_TextBody', 'Client_TextBody', 'Latest_TextBody', 'year','month','email_counts','issue_counts','duration','subtype','churn'] 
 email_df=churn_text_pickle.loc[:,usecols]
+email_df["subtype"]=email_df["subtype"].apply(lambda x : x.most_common()[0][0])
 email_df_train=email_df[email_df['year']!=2022]
 email_df_test=email_df[email_df['year']==2022]
 
