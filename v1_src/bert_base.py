@@ -203,7 +203,7 @@ def main(args,train_data, test_data):
             batch={k:v.type(torch.LongTensor).to(accelerator.device) for k,v in batch.items()}
             outputs=model(**batch)
 #             loss=outputs.loss
-            logits=outputs.loss['logits']
+            logits=outputs['logits']
             
             if loss_weight is None:
                 loss = F.cross_entropy(logits.view(-1, num_classes).to(accelerator.device),batch["labels"])

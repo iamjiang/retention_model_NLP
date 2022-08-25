@@ -77,24 +77,24 @@ askunum_text['unum_id']=askunum_text['unum_id'].astype(int).astype(str)
 askunum_text.sort_values(["unum_id","year","month","MessageDate"],inplace=True,ascending=True)
 askunum_text.to_pickle(os.path.join(my_folder,"askunum_text_pickle"))
 
-#### Split unum_id into 10 chunk ####
-def chunks_split(data,n):
-    k=len(data)//n
-    for i in range(0,n-1):
-        yield data[i*k:(i+1)*k]
-    yield data[(n-1)*k:]
+# #### Split unum_id into 10 chunk ####
+# def chunks_split(data,n):
+#     k=len(data)//n
+#     for i in range(0,n-1):
+#         yield data[i*k:(i+1)*k]
+#     yield data[(n-1)*k:]
     
-start=time.time()
-askunum_text=pd.read_pickle(os.path.join(my_folder,'askunum_text_pickle'))
-end=time.time()
-print("It took {:0.4f} seconds to read text data".format(end-start))
+# start=time.time()
+# askunum_text=pd.read_pickle(os.path.join(my_folder,'askunum_text_pickle'))
+# end=time.time()
+# print("It took {:0.4f} seconds to read text data".format(end-start))
 
-unum_id=np.unique(askunum_text.unum_id.values)
-chunk=chunks_split(unum_id,10)
+# unum_id=np.unique(askunum_text.unum_id.values)
+# chunk=chunks_split(unum_id,10)
 
-for i in tqdm(range(1,11)):
-    tempt=pd.DataFrame(next(iter(chunk)),columns=["unum_id"]).reset_index(drop=True)
-    tempt.to_csv(os.path.join(my_folder,f"unique_unum_v{i}.csv"))
+# for i in tqdm(range(1,11)):
+#     tempt=pd.DataFrame(next(iter(chunk)),columns=["unum_id"]).reset_index(drop=True)
+#     tempt.to_csv(os.path.join(my_folder,f"unique_unum_v{i}.csv"))
 
 
 

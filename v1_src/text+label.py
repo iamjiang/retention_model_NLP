@@ -11,17 +11,24 @@ tqdm.pandas(position=0,leave=True)
 from collections import Counter
 import textwrap
 
-def main(args,churn_df,text_df):
+def dataframe_to_dictionary(df, key_column): 
+
+    dict_of_dataframes = dict()
+    df["year_month"]=pd.to_datetime(df.apply(lambda x: str(x['year'])+'-' + str(x['month']) ,axis=1),format="%Y-%m")
+      
+    counter = 0 
+    for id, group in tqdm(df.groupby(key_column),total=df.unum_id.unique().shape[0], position=0, leave=True):
+        group = group.sort_values("year_month")
+        group = group.set_index("year_month")
+        dict_of_dataframes[id] = group
+        counter += 1
+    return dict_of_dataframes
+
+def main(args,churn_df, dict_of_df,  num_months_to_use=6):
     
     churn_df["unum_id"]=churn_df["unum_id"].apply(str)
     text_df["unum_id"]=text_df["unum_id"].astype(int).apply(str)
     
-    file_name=args.unum_id
-    unique_unum_id=pd.read_csv(os.path.join(my_folder,file_name+".csv"), usecols=["unum_id"])["unum_id"].values.squeeze()
-    unique_unum_id=unique_unum_id.astype(str)
-    
-    text_df=text_df[text_df['unum_id'].isin(unique_unum_id)]
-    churn_df=churn_df[churn_df["unum_id"].isin(unique_unum_id)]
     unum_id=[]
     policy_id=[]
     pivot_date=[]
@@ -38,20 +45,23 @@ def main(args,churn_df,text_df):
     SUBTYPE=[]
     churn=[]
 
-    # text_df.loc[:,'day']=1
-    # text_df.loc[:,'date']=pd.to_datetime(text_df[['year','month','day']],format="%Y%m%d")
-    # text_df.drop(['day'],inplace=True, axis=1)
-
     for index,row in tqdm(churn_df.iterrows(), total=churn_df.shape[0]):
-
-        ### Concatenate email message between start_date and end_date
-        tempt=text_df[(text_df["unum_id"]==row["unum_id"]) & (pd.to_datetime(text_df["MessageDate"]).dt.date>=row["start_date"]) & \
-                      (pd.to_datetime(text_df["MessageDate"]).dt.date<=row["end_date"])]
-        tempt.dropna(subset=["TextBody"],inplace=True)
-
+        id=row["unum_id"]
+        last_date=row["end_date"]
+        if id not in dict_of_df:
+            continue
+        data = dict_of_df[id]
+        try:
+            end_index = data.index.get_loc(last_date)
+            tempt = data.iloc[end_index+1-num_months_to_use:end_index+1]
+        except:
+            continue
+        
         if tempt.empty:
             continue
-
+            
+        tempt=tempt.reset_index()
+        tempt.dropna(subset=['TextBody'],inplace=True)
         tempt.sort_values(["unum_id","MessageDate"],inplace=True,ascending=True)
         
         subtype=Counter(tempt[tempt["Incoming"]==True].Subtype.values)
@@ -114,10 +124,8 @@ def main(args,churn_df,text_df):
 if __name__=="__main__":
     
     argparser = argparse.ArgumentParser("create churn text dataset")
-    
-    argparser.add_argument('--unum_id', type=str, default="unique_unum_v1")
 
-    argparser.add_argument('--output_name', type=str, default="churn_text_pickle_v1") 
+    argparser.add_argument('--output_name', type=str, default="churn_text_pickle") 
     
     args = argparser.parse_args()
     
@@ -132,10 +140,10 @@ if __name__=="__main__":
     print("It took {:0.4f} seconds to read text data".format(end-start))
     
     churn_data=pd.read_pickle(os.path.join(my_folder,'churn_data_pickle'))
+    
+    df_of_dict = dataframe_to_dictionary(askunum_text, 'unum_id')
 
-    main(args,churn_data,askunum_text)
-    
-    
+    main(args,churn_data, dict_of_df,  num_months_to_use=6)
     
 
 # import textwrap
