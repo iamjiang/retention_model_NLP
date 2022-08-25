@@ -42,6 +42,12 @@ python data_truncation.py \
 --model_name bert \
 --feature_name Client_TextBody 
 
+python data_truncation.py \
+--truncation_strategy tail \
+--max_length 512 \
+--model_checkpoint roberta-base \
+--model_name roberta \
+--feature_name Full_TextBody
 
 python data_truncation.py \
 --truncation_strategy tail \
@@ -49,3 +55,10 @@ python data_truncation.py \
 --model_checkpoint roberta-base \
 --model_name roberta \
 --feature_name Latest_TextBody 
+
+python data_truncation.py \
+--truncation_strategy tail \
+--max_length 512 \
+--model_checkpoint roberta-base \
+--model_name roberta \
+--feature_name Client_TextBody
