@@ -14,7 +14,9 @@ import textwrap
 def dataframe_to_dictionary(df, key_column): 
 
     dict_of_dataframes = dict()
-    df["year_month"]=pd.to_datetime(df.apply(lambda x: str(x['year'])+'-' + str(x['month']) ,axis=1),format="%Y-%m")
+    df[key_column]=df[key_column].astype(int).apply(str)
+    df=df.dropna(subset=["TextBody"])
+    df["year_month"]=pd.to_datetime(df.apply(lambda x: str(x['year'])+ str(x['month']) ,axis=1),format="%Y%m")
       
     counter = 0 
     for id, group in tqdm(df.groupby(key_column),total=df.unum_id.unique().shape[0], position=0, leave=True):
@@ -27,7 +29,6 @@ def dataframe_to_dictionary(df, key_column):
 def main(args,churn_df, dict_of_df,  num_months_to_use=6):
     
     churn_df["unum_id"]=churn_df["unum_id"].apply(str)
-    text_df["unum_id"]=text_df["unum_id"].astype(int).apply(str)
     
     unum_id=[]
     policy_id=[]
@@ -47,21 +48,20 @@ def main(args,churn_df, dict_of_df,  num_months_to_use=6):
 
     for index,row in tqdm(churn_df.iterrows(), total=churn_df.shape[0]):
         id=row["unum_id"]
-        last_date=row["end_date"]
+
         if id not in dict_of_df:
             continue
         data = dict_of_df[id]
-        try:
-            end_index = data.index.get_loc(last_date)
-            tempt = data.iloc[end_index+1-num_months_to_use:end_index+1]
-        except:
-            continue
+        tempt=data[(data.index>=row["start_date"]) & (data.index<=row["end_date"])]
         
         if tempt.empty:
             continue
             
         tempt=tempt.reset_index()
         tempt.dropna(subset=['TextBody'],inplace=True)
+        tempt=tempt[tempt.TextBody.notna()]
+        tempt=tempt[tempt.TextBody.str.len()>0]
+        
         tempt.sort_values(["unum_id","MessageDate"],inplace=True,ascending=True)
         
         subtype=Counter(tempt[tempt["Incoming"]==True].Subtype.values)
@@ -116,6 +116,8 @@ def main(args,churn_df, dict_of_df,  num_months_to_use=6):
     churn_text_data['policy_id']=churn_text_data['policy_id'].apply(int)
     churn_text_data=churn_text_data.reset_index(drop=True)
     
+    print("{:<20}{:<20,}".format("rows of data:",churn_text_data.shape[0]))
+    
     churn_text_data.to_pickle(os.path.join(my_folder,args.output_name))
     
     # return churn_text_data
@@ -143,7 +145,7 @@ if __name__=="__main__":
     
     df_of_dict = dataframe_to_dictionary(askunum_text, 'unum_id')
 
-    main(args,churn_data, dict_of_df,  num_months_to_use=6)
+    main(args,churn_data, df_of_dict,  num_months_to_use=6)
     
 
 # import textwrap
