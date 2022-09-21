@@ -387,7 +387,7 @@ if __name__=="__main__":
     hf_data=hf_data.rename_column("truncated_text", args.feature_name)
     
     train_data=hf_data['train'].shuffle(seed=101).select(range(len(hf_data["train"])))
-    val_data=hf_data['val'].shuffle(seed=101).select(range(len(hf_data["val"])))
+    # val_data=hf_data['val'].shuffle(seed=101).select(range(len(hf_data["val"])))
     test_data=hf_data['test'].shuffle(seed=101).select(range(len(hf_data["test"])))
     
     # train_data=hf_data['train'].shuffle(seed=101).select(range(800))
