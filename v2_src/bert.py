@@ -105,7 +105,7 @@ def main(args,train_data, test_data, device):
                                 shuffle=True,
                                 batch_size=args.batch_size,
                                 collate_fn=train_module.collate_fn,
-                                drop_last=True   # longformer model bug
+                                drop_last=False   # longformer model bug
                                )
     
 #     train_dataloader=DataLoader(train_module,
@@ -353,7 +353,9 @@ if __name__=="__main__":
     hf_train=Dataset.from_pandas(train_df)
     hf_val=Dataset.from_pandas(val_df)
     hf_test=Dataset.from_pandas(test_df)
-    hf_data=DatasetDict({"train":hf_train, "val":hf_val,  "test":hf_test})
+    # hf_data=DatasetDict({"train":hf_train, "val":hf_val,  "test":hf_test})
+    hf_data=concatenate_datasets([hf_train,  hf_val],split="train")
+    hf_data=DatasetDict({"train":hf_data, "test":hf_test})
 
     hf_data=hf_data.filter(lambda x: x[args.feature_name]!=None)
     
