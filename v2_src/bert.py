@@ -332,8 +332,8 @@ if __name__=="__main__":
 
     # args.model_output_name=f'{args.model_output_name}_{args.truncation_strategy}'
     # args.output_dir=f'{args.output_dir}_{args.truncation_strategy}'
-    args.output_dir=args.model_checkpoint.split("-")[0]+"_repo"
-    args.model_output_name=args.model_checkpoint.split("-")[0]
+    args.output_dir=args.model_checkpoint.split("-")[0] + "_" + args.model_checkpoint.split("-")[1] + "_repo"
+    args.model_output_name=args.model_checkpoint.split("-")[0] + "_" + args.model_checkpoint.split("-")[1]
 
     seed_everything(args.seed)
 
