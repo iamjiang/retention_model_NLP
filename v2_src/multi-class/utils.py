@@ -307,3 +307,92 @@ def lift_gain_eval(logit,label,topk):
         DF2=DF.nlargest(N,"pred_score",keep="first")
         gain[str(int(p*100))+"%"]=round(DF2.actual_label.sum()/(DF.actual_label.sum()*p),2)
     return gain
+
+
+class Sample_Creation:
+    def __init__(self, df, **kwargs):
+        self.df=df
+        self.kwargs=kwargs
+        
+    def subtype_find(self,keyword):
+        subtype=self.df["Subtype"].values.tolist()
+        mask=[False for _ in range(len(subtype))]
+        for i in range(len(subtype)):
+            for k in keyword:
+                if k in subtype[i]:
+                    mask[i]=True
+                    break
+        return np.unique(np.array(subtype)[mask]).tolist(),mask
+    
+    def data_creation(self,val_ratio, test_ratio):
+        """"
+        Description
+        -----------
+        create training, validation and test set for positive and negative samples
+    
+        Parameters:
+        ----------
+        val_ratio: validation set ratio, default=10% 
+        test_ratio: test set ratio, default=10%.  training set ratio=1-val_ratio-test_ratio
+
+        Returns:
+        --------
+        Traning, validationa and test dataset including positive and negative samples for each category
+        
+        """
+        self.df["new_category"]=None
+        for k,v in self.kwargs.items():
+            
+            _, _index=self.subtype_find(keyword=v)
+            self.df.loc[_index,["new_category"]]=k
+            
+        pos_sample=self.df.dropna(subset=["new_category"])
+        neg_sample=self.df[self.df["new_category"].isnull()==True].reset_index()
+        
+        neg_num=pos_sample.shape[0]//len(self.kwargs)
+        neg_sample=neg_sample.sample(n=neg_num, random_state=101)
+        neg_sample["new_category"]="other-category"
+        
+        sample_data=pd.concat([pos_sample, neg_sample],axis=0).reset_index()
+        
+        ## create training, validation and test data based on each category of subtype
+        def train_val_test(data,val_ratio,test_ratio):
+            data=data.reset_index(drop=True)
+            np.random.seed(101)
+            _idx=np.arange(len(data))
+
+            np.random.shuffle(_idx)
+            test_idx=_idx[:int(len(_idx)*test_ratio)]
+            val_idx=_idx[int(len(_idx)*test_ratio) : int(len(_idx)*(val_ratio+test_ratio))]
+            train_idx=_idx[int(len(_idx)*(val_ratio+test_ratio)):]
+            
+            train_data=data.loc[train_idx,:]
+            val_data=data.loc[val_idx,:]
+            test_data=data.loc[test_idx,:]
+            
+            return train_data, val_data, test_data
+        
+        train_df, val_df, test_df=pd.DataFrame(), pd.DataFrame(), pd.DataFrame()
+        
+        category_type=sample_data["new_category"].unique().tolist()
+        for idx, v in enumerate(category_type):
+            data=sample_data[sample_data["new_category"]==v]
+            _train, _val, _test=train_val_test(data,val_ratio,test_ratio)
+            train_df=train_df.append(_train)
+            val_df=val_df.append(_val)
+            test_df=test_df.append(_test)
+            
+        train_df.drop(['level_0','index'],axis=1,inplace=True)
+        val_df.drop(['level_0','index'],axis=1,inplace=True)
+        test_df.drop(['level_0','index'],axis=1,inplace=True)
+        
+        train_df = train_df.sample(frac=1, random_state=101).reset_index(drop=True)
+        val_df = val_df.sample(frac=1, random_state=101).reset_index(drop=True)
+        test_df = test_df.sample(frac=1, random_state=101).reset_index(drop=True)
+        
+        # train_df.to_csv(os.path.join(args.output_dir ,'train_df.csv'))
+        # val_df.to_csv(os.path.join(args.output_dir ,'val_df.csv'))
+        # test_df.to_csv(os.path.join(args.output_dir ,'test_df.csv'))
+        
+        return train_df, val_df, test_df
+    
