@@ -169,4 +169,29 @@ python GPT3_complete_sentence.py  --idx 2
 python GPT3_complete_sentence.py  --idx 19
 ```
 
+The main function for gpt3 in-context learning are as followings:
+
+```python
+def get_gpt3_complete(keyword,max_tokens=15,temperature=0):
+    response = openai.Completion.create(
+      model="text-davinci-002",
+      prompt=[f"given the key words below, generate a medical related only sentence ### \
+      key words: intractable back pain -> sentence: the person has intractable back pain ***  \
+      key words: at high risk -> sentence:  the person's condition has no change  *** \
+      key words: 10 pain -> sentence:  the person has a rating of 10 pain  *** \
+      key words: no change -> sentence:  the person's condition has no change *** \
+      key words: pain is well controlled -> sentence:  the person control his pain ver well *** \
+      key words: a rating of -> sentence:  the person has a rating of 10 pain level  *** \
+      key words: good progress -> sentence:  the person has shown good progress in his condition *** \
+      key words: {keyword} -> sentence: \
+      "],
+      temperature=0,
+      max_tokens=max_tokens,
+      top_p=1,
+      frequency_penalty=0,
+      presence_penalty=0,
+      stop=["\n","<|endoftext|>"]
+    )
+    return response
+```
 
