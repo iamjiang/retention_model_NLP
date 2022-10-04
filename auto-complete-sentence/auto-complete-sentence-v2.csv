@@ -1,0 +1,901 @@
+,original keyword,generated sentence
+0,denies any complaints, the person denies any complaints of pain
+1,deny any complaints, the person denies any complaints of pain
+2,pain level, the person has a rating of 10 pain level
+3,"negative for chills, fatigue and fever"," the person is negative for chills, fatigue and fever"
+4,negative for chills, the person is negative for chills
+5,negative for fatigue, the person is negative for fatigue
+6,negative for fever, the person's temperature is negative for fever
+7,positive for back pain, the person is positive for back pain
+8,back pain, the person has back pain
+9,positive for gastrointestinal, the person is positive for gastrointestinal ***
+10,increased pain in her legs, the person has increased pain in her legs
+11,increased pain, the person has increased pain in his condition
+12,severe spinal stenosis, the person has severe spinal stenosis
+13,not started an exercise routine due to the pain in her legs, the person has not started an exercise routine due to the pain in her legs
+14,have to sit down after walking for long periods of time, the person has to sit down after walking for long periods of time because of the pain.
+15,severe panic attacks, the person has severe panic attacks ***
+16,panic attacks, the person experiences panic attacks
+17,continued to get worse, the person's condition has continued to get worse
+18,get worse, the person's condition gets worse
+19,gets worse, the person's condition gets worse
+20,getting worse over the last, the person's condition has been getting worse over the last few days
+21,getting worse, the person's condition is getting worse
+22,doing poorly with the problems, the person is doing poorly with the problems and is not responding to treatment ***
+23,doing poorly, the person is doing poorly and his condition has worsened
+24,nothing has been working so far, the person has not seen any improvement in his condition despite various treatments
+25,still at high risk for worsening, the person is still at high risk for worsening ***
+26,at high risk, the person is at high risk for developing complications.
+27,pain is worse, the person's pain is worse
+28,back pain worsening over the last, the person's back pain has worsened over the last few days
+29,worsening over the last, the person's condition has worsened over the last few days
+30,current pain medications are working less and less, the person's current pain medications are working less and less.
+31,working less and less, the person is working less and less because of the pain.
+32,continued to worsen, the person's condition has continued to worsen
+33,was much worse, the person's condition was much worse
+34,cannot put any pressure on that foot, the person cannot put any pressure on that foot.
+35,continued to let this worsen, the person has continued to let this worsen and has not sought medical attention
+36,vision seems worse, the person's vision seems to have gotten worse
+37,pain is moderate, the person has moderate pain
+38,pain is moderate with a rating of 7/10, the person has moderate pain with a rating of 7/10
+39,a rating of, the person has a rating of 10 pain level
+40,symptoms are constant, the person's symptoms are constant
+41,the problem is unchanged, the person's condition has no change
+42,intractable back pain, the person has intractable back pain
+43,pain is quite severe, the person's pain is quite severe
+44,acute t12 vertebral compression fracture, the person has an acute t12 vertebral compression fracture
+0,acute fracture, the person has an acute fracture in his arm
+1,greater than 50% of anterior vertebral body height loss, the person has greater than 50% of anterior vertebral body height loss
+2,height loss, the person has a height loss of 2 inches
+3,weight loss, the person has lost weight
+4,no change in the symptoms, the person's condition has no change
+5,no change, the person's condition has no change
+6,symptoms are made worse with, the person's symptoms are made worse with physical activity
+7,symptoms are made worse, the person's symptoms are made worse by the medication
+8,improvement with, the person has shown improvement with the medication
+9,reports some improvement with flovent but still sob, the person reports some improvement with flovent but still sob
+10,denies any other concerns, the person denies any other concerns ***
+11,denies any concerns, the person denies any concerns about his health
+12,seems to be getting better but improvement is slow, the person seems to be getting better but improvement is slow
+13,getting better, the person is getting better
+14,improvement is slow, the person's improvement is slow
+15,slow improvement, the person has slow improvement in his condition
+16,doing fair with the problems, the person is doing fair with the problems he is having
+17,doing fair, the person is doing fair in his condition
+18,is improved, the person's condition is improved
+19,will try to return to work but in a graduated pattern, the person will try to return to work but in a graduated pattern
+20,try to return to work, the person is trying to return to work
+21,10 pain, the person has a rating of 10 pain
+22,pain scale, the person is a 7 on the pain scale
+23,denies any pain, the person denies any pain ***
+24,denies pain, the person denies pain ***
+25,denied pain, the person denied having pain ***
+26,excruciating pain, the person has excruciating pain and is in need of help
+27,pain well controlled, the person's pain is well controlled
+28,in excruciating pain, the person is in excruciating pain
+29,severe pain, the person has severe pain and is in need of help
+30,pain level out of, the person's pain level is out of 10
+31,pain is well controlled, the person controls his pain very well
+32,improving with better pain tolerance, the person is improving with better pain tolerance
+33,improving with, the person is improving with the treatments ***
+34,better pain tolerance, the person has a better pain tolerance
+35,denies pain or needs, the person denies pain or needs for medication ***
+36,denies needs, the person denies any needs for help
+37,postoperative pain, the person is experiencing postoperative pain
+38,rates current pain to be, the person rates current pain to be a level 8 out of 10
+39,rates her current pain to be, the person rates her current pain to be a 7 on a scale of 1-10
+40,rates his current pain to be, the person rates his current pain to be a 7 on a scale of 1 to 10.
+41,without pain in, the person is without pain in his back
+42,doing great, the person is doing great and his condition is improving
+43,doing great today, the person is doing great today and his condition has improved
+44,feeling much better, the person is feeling much better and his condition is improving
+0,feel better, the person feels better today
+1,feel much better, the person feels much better today
+2,feels well, the person feels well and has no pain ***
+3,feel well, the person feels well and has no pain ***
+4,feels good, the person feels good today
+5,feeling depressed, the person is feeling depressed because of his condition
+6,feels depressed, the person feels depressed because of his condition
+7,feeling anxious, the person is feeling anxious about his condition
+8,feels anxious, the person feels anxious about his condition
+9,feeling streessed, the person is feeling stressed about his condition
+10,feels streessed, the person feels stressed about his condition
+11,anxious and stressed, the person is anxious and stressed about his condition
+12,reports some improvement, the person reports some improvement in his condition
+13,some improvement with, the person has shown some improvement with the new medication
+14,not sleeping well, the person is not sleeping well because of the pain.
+15,sleep apnea, the person has sleep apnea ***
+16,ready to go back to work, the person is ready to go back to work
+17,has limitations with endurance, the person has limitations with endurance and is not able to do much activity.
+18,has limitations, the person has limitations in his condition
+19,do not think her stroke is disabling, the person does not think her stroke is disabling
+20,unable to work due to, the person is unable to work due to his condition
+21,unable to work, the person is unable to work because of his condition
+22,not able to, the person is not able to walk because of the pain
+23,no drainage, the person has no drainage from his wound
+24,no dyspnea, the person has no dyspnea ***
+25,abnormality is identified, an abnormality is identified on the person's MRI
+26,no significant, the person has no significant change in his condition
+27,panic attack, the person is having a panic attack
+28,sutures are intact, the person's sutures are still intact
+29,no dehiscence, the person has no dehiscence ***
+30,no odor, the person has no odor ***
+31,no odor or purulent drainage, the person has no odor or purulent drainage
+32,no purulent drainage, the person has no purulent drainage
+33,future physical therapy, the person will need future physical therapy to help with his condition
+34,future injection, the person needs a future injection
+35,future dialysis, the person may need future dialysis ***
+36,future radiation, the person may need future radiation to treat his condition
+37,future chemo, the person will have to go through future chemo
+38,get in tomorrow for, the person needs to get in tomorrow for a checkup
+39,appointments for physical therapy, the person has appointments for physical therapy to help with his condition
+40,appointments for several weeks, the person has appointments for several weeks to come.
+41,planning another injection, the person is planning another injection to help with the pain.
+42,injection is scheduled for, the person's injection is scheduled for next week
+43,injection is scheduled, the person's injection is scheduled for next week
+44,is scheduled for, the person is scheduled for a surgery
+0,pain clinic, the person is going to the pain clinic for help
+1,postop followup visit, the person has a postop followup visit scheduled for next week
+2,postop follow up visit, the person has a postop follow up visit scheduled for next week
+3,continue with progression, the person's condition has no change
+4,continue to benefit from skilled physical therapy, the person continue to benefit from skilled physical therapy ***
+5,benefit from skilled physical therapy, the person will benefit from skilled physical therapy
+6,benefit from physical therapy, the person will benefit from physical therapy
+7,continue physical therapy, the person should continue physical therapy to improve his condition
+8,continue strengthening, the person should continue strengthening his muscles to improve his condition
+9,continue progressing, the person continue progressing in his condition
+10,presents to urgent care clinic, the person presents to urgent care clinic with intractable back pain.
+11,will have occupational therapy, the person will have occupational therapy to help with his condition
+12,will have therapy, the person will have therapy to help with his condition
+13,will follow up, the person will follow up with the doctor in 2 weeks
+14,underwent mri scanning, the person underwent mri scanning to check for any changes in his condition.
+15,will likely be able to return to work, the person will likely be able to return to work in the near future
+16,moderate dysfunction, the person has moderate dysfunction in his condition
+17,severe dysfunction, the person has severe dysfunction and is not able to function properly
+18,want to go back to the office, the person wants to go back to the office
+19,plan for future physical therapy, the person has a plan for future physical therapy to help with his condition
+20,plan for injection, the person's plan is to have an injection for his pain
+21,plan for dialysis, the person has a plan for dialysis
+22,plan for radiation, the person has a plan for radiation therapy
+23,plan for chemo, the person's plan is to have chemo
+24,appointments for injection, the person has appointments for injection to help with pain relief
+25,appointments for dialysis, the person has appointments for dialysis ***
+26,appointments for radiation, the person has appointments for radiation therapy ***
+27,appointments for chemo, the person has appointments for chemo ***
+28,planning physical therapy, the person is planning to start physical therapy
+29,planning injection, the person is planning to have an injection
+30,planning dialysis, the person is planning to have dialysis
+31,planning radiation, the person is planning to have radiation therapy
+32,planning chemo, the person is planning to have chemo
+33,continue injection, the person will continue to have injections to help with the pain
+34,continue dialysis, the person will continue to have dialysis ***
+35,continue radiation, the person will continue radiation therapy
+36,continue chemo, the person will continue to receive chemo therapy
+37,will have physical therapy, the person will have physical therapy to help with his condition
+38,will have injection, the person will have an injection to help with the pain
+39,will have dialysis, the person will have dialysis ***
+40,will have radiation, the person will have radiation therapy to help with the pain.
+41,will have chemo, the person will have chemo next week
+42,physical therapy, the person is doing physical therapy to help with his pain
+43,injection, the person needs an injection for his pain
+44,dialysis, the person is on dialysis
+0,radiation, the person is receiving radiation therapy
+1,no abdominal pain, the person has no abdominal pain ***
+2,without pain, the person is without pain
+3,progressing, the person is progressing well in his condition
+4,stability, the person's condition is stable
+5,no significant joint disease is noted, the person has no significant joint disease is noted
+6,no significant soft tissue abnormality is identified, no significant soft tissue abnormality is identified on the person ***
+7,urgent care, the person needs urgent care
+8,found on mri, the mri showed that the person has intractable back pain
+9,have on mri, the person has an mri to show the progress of the condition
+10,crying at times, the person cries at times because of the pain
+11,appears uncomfortable, the person appears uncomfortable and is in pain.
+12,not able to walk, the person is not able to walk because of the pain
+13,pain when, the person experiences pain when he moves his arm
+14,extremity weakness, the person has extremity weakness
+15,stable appearance, the person's appearance is stable
+16,feel more sore, the person feels more sore today
+17,more sore, the person is more sore today
+18,not detected, the person's condition has not been detected
+19,no pain, the person has no pain ***
+20,knee injection, the person is getting a knee injection
+21,next injection plan, the person's next injection plan is to be given on Monday
+22,hand injury, the person has a hand injury
+23,foot injury, the person has a foot injury
+24,ankle injury, the person has an ankle injury
+25,shoulder injury, the person has a shoulder injury
+26,knee injury, the person has a knee injury
+27,hand injection, the person needs a hand injection
+28,foot injection, the person needs a foot injection
+29,ankle injection, the person is getting an ankle injection
+30,shoulder injection, the person is getting a shoulder injection
+31,osteophytes, the person has osteophytes in his spine
+32,severe narrowing, the person has severe narrowing of the spine
+33,no complaints, the person has no complaints ***
+34,concurrent chemo, the person is receiving concurrent chemo ***
+35,concurrent physical therapy, the person is doing concurrent physical therapy to help with his condition
+36,concurrent injection, the person is receiving a concurrent injection
+37,concurrent dialysis, the person is receiving dialysis while also being treated for his condition
+38,concurrent radiation, the person is receiving radiation therapy at the same time
+39,no fevers, the person has no fevers ***
+40,no chills, the person has no chills ***
+41,possible returntowork, the person has a possible returntowork in the near future
+42,continues to improve, the person continues to improve and is doing well
+43,does not report any, the person does not report any pain ***
+44,does not report any abnormal, the person does not report any abnormal changes in his condition
+0,abnormal complications, the person has abnormal complications ***
+1,does not endorse any fevers, the person does not endorse any fevers.
+2,does not endorse any chills, the person does not endorse any chills ***
+3,not experiencing much pain, the person is not experiencing much pain at the moment
+4,not much pain, the person has not much pain
+5,continues to see progress, the person continues to see progress in his condition
+6,progress from physical therapy, the person has made progress from physical therapy
+7,returning to work, the person is returning to work next week
+8,restlessness, the person is restless and cannot sleep ***
+9,routine antenatal care, the person is receiving routine antenatal care
+10,retinal detachment, the person has retinal detachment
+11,post-oprative positioning, the person is post-oprative positioning
+12,nuclear sclerosis ou, the person has nuclear sclerosis of the eye
+13,preoperative prophylactic iv antibiotics, the person is given preoperative prophylactic iv antibiotics to prevent infection.
+14,preoperative prophylactic, the person is given preoperative prophylactic antibiotics to prevent infection.
+15,abnormal, the person has an abnormal condition
+16,decreased, the person's pain level has decreased
+17,increased, the person's condition has increased ***
+18,improved, the person's condition has improved
+19,slightly better, the person's condition is slightly better
+20,much better, the person's condition is much better
+21,maintained, the person's condition is maintained
+22,stabilized, the person's condition has stabilized
+23,increased relative to previous, the person's condition has increased relative to the previous day
+24,decreased relative to previous, the person's condition has decreased relative to what it was before
+25,no status change, the person's condition has no change
+26,changed status, the person's condition has changed for the better
+27,unstable status, the person's status is unstable
+28,change patterns, the person's change patterns are not good
+29,worsening, the person's condition is worsening
+30,increasing, the person's pain is increasing
+31,decreasing, the person's pain is decreasing
+32,improving, the person's condition is improving
+33,stable, the person's condition is stable
+34,improvement of status, the person's condition has improved
+35,deterioration of status, the person's condition has deteriorated
+36,slightly worse, the person's condition is slightly worse
+37,much worse, the person's condition has gotten much worse
+38,stabilization of status, the person's condition has stabilized and is not getting worse
+39,patient condition poor, the patient's condition is poor
+40,patient condition unstable, the person's condition is unstable and he is at high risk
+41,patient condition satisfactory, the patient's condition is satisfactory
+42,patient condition improved, the person's condition has improved ***
+43,condition poor, the person's condition is poor
+44,condition unstable, the person's condition is unstable
+0,condition satisfactory, the person's condition is satisfactory
+1,condition improved, the person's condition has improved
+2,greatly improved, the person's condition has greatly improved
+3,moderately improved, the person's condition has moderately improved
+4,slightly improved, the person's condition has slightly improved
+5,condition worsened, the person's condition has worsened
+6,moderately worse, the person's condition is moderately worse
+7,condition deteriorating, the person's condition is deteriorating
+8,condition stable, the person's condition is stable
+9,condition unchanged, the person's condition has no change
+10,condition resolved, the person's condition has resolved itself
+11,epilepsy resolved, the person's epilepsy has resolved itself
+12,hypertension resolved, the person's hypertension has resolved itself
+13,asthma resolved, the person's asthma has resolved itself
+14,diabetes resolved, the person's diabetes has resolved itself
+15,hyperthyroidism resolved, the person's hyperthyroidism has resolved itself.
+16,skin cleared, the person's skin has cleared up
+17,acute attack resolved, the person's acute attack has resolved itself
+18,patient cured, the patient has been cured of his condition
+19,condition appropriate for anesthesia, the person's condition is appropriate for anesthesia
+20,condition made worse by work, the person's condition has been made worse by his work
+21,condition appropriate for non-medication therapy, the person's condition is appropriate for non-medication therapy
+22,condition undetermined, the person's condition is undetermined at this time
+23,not recovering from, the person is not recovering from his injuries
+24,headache, the person has a headache
+25,migraine, the person has a migraine ***
+26,angina, the person has angina ***
+27,neuralgia, the person has neuralgia ***
+28,atherosclerosis, the person has atherosclerosis ***
+29,susceptible, the person is susceptible to high risk conditions.
+30,moderately susceptible, the person is moderately susceptible to the disease.
+31,intermediately susceptible, the person is intermediately susceptible to the disease
+32,very good, the person is doing very good
+33,moderately good, the person's condition is moderately good
+34,very slow, the person's progress is very slow
+35,increase, the person's condition has increased ***
+36,decrease, the person's pain level has decreased
+37,deficient, the person is deficient in his condition
+38,efficient, the person's condition is efficient
+39,exaggerated, the person's pain is exaggerated
+40,excessive, the person has excessive back pain
+41,impaired, the person's condition has impaired
+42,inconsistent, the person's condition is inconsistent
+43,inefficient, the person's condition is inefficient
+44,heavy growth, the person has heavy growth in his tumor
+0,moderate growth, the person has moderate growth in his condition
+1,most significant, the person's most significant symptom is the pain
+2,highly significant, the person's condition is highly significant
+3,moderately significant, the person has moderately significant pain ***
+4,not significant, the person's condition is not significantly different
+5,minimally significant, the person's condition is minimally significant
+6,significant, the person has significant pain in his back
+7,insufficient, the person's condition is insufficient
+8,very low, the person has a very low chance of survival
+9,abnormally low, the person has an abnormally low level of white blood cells
+10,inadequate, the person's progress is inadequate
+11,abnormally high, the person has an abnormally high level of pain
+12,abnormal, the person has an abnormal condition
+13,improved, the person's condition has improved
+14,better, the person's condition is getting better
+15,slightly better, the person's condition is slightly better
+16,much better, the person's condition is much better
+17,a little better, the person's condition is a little better
+18,improved somewhat, the person's condition has improved somewhat
+19,improved relative to previous status, the person's condition has improved relative to previous status
+20,improving, the person's condition is improving
+21,improvement in status, the person's condition has improved
+22,condition improving, the person's condition is improving
+23,condition improved, the person's condition has improved
+24,greatly improved, the person's condition has greatly improved
+25,moderately improved, the person's condition has moderately improved
+26,slightly improved, the person's condition has slightly improved
+27,doing better, the person is doing better and his condition is improving
+28,recovery progressing well, the person's recovery is progressing well
+29,progressing well, the person is progressing well in his condition
+30,symptoms improved, the person's symptoms have improved
+31,symptoms resolved, the person's symptoms have resolved themselves
+32,patient stable, the patient is stable and his condition is not worsening
+33,symptoms stable, the person's symptoms are stable
+34,patient unchanged, the patient's condition is unchanged from the last visit
+35,symptoms unchanged, the person's symptoms have not changed
+36,no change in symptoms, the person's condition has no change
+37,no change in status, the person's condition has no change
+38,condition unchanged, the person's condition has no change
+39,condition same, the person's condition is the same
+40,condition stable, the person's condition is stable
+41,stable, the person's condition is stable
+42,unchanged, the person's condition is unchanged
+43,no improvement, the person has not shown any improvement in his condition
+44,symptoms same, the person's symptoms are the same
+0,continues with symptoms, the person continues with his symptoms
+1,continues with no improvement, the person continues with no improvement
+2,continues with no change, the person continues with no change
+3,steady, the person's condition is steady
+4,condition steady, the person's condition is steady
+5,symptoms steady, the person's symptoms are steady ***
+6,patient deteriorating, the person's condition is deteriorating
+7,symptoms increased, the person's symptoms have increased
+8,patient worse, the person's condition has worsened
+9,symptoms worse, the person's symptoms have gotten worse
+10,condition guarded, the person's condition is guarded
+11,slightly worse, the person's condition is slightly worse
+12,moderately worse, the person's condition is moderately worse
+13,diagnosis worse, the person's diagnosis has gotten worse
+14,much worse, the person's condition has gotten much worse
+15,symptoms increasing, the person's symptoms are increasing
+16,condition worsened, the person's condition has worsened
+17,condition protracted, the person's condition has been protracted
+18,declining, the person's condition is declining
+19,patient declining, the person is declining in his condition
+20,worsening, the person's condition is worsening
+21,going backwards, the person's condition is going backwards
+22,going downhill, the person's condition is going downhill
+23,in decline, the person's condition is in decline
+24,getting worse, the person's condition is getting worse
+25,unstable, the person's condition is unstable
+26,abnormal, the person has an abnormal condition
+27,no new complaints, the person has no new complaints ***
+28,no complain, the person has no complain about his condition
+29,no chief complaint, the person has no main health problem ***
+30,no history or complaints, the person has no history or complaints of the condition ***
+31,no other complaints, the person has no other complaints other than the pain
+32,no unusual complaints, the person has no unusual complaints at this time
+33,denied any physical complaints, the person denied any physical complaints when asked by the doctor
+34,no concerns/complaints, the person has no concerns or complaints at this time
+35,no other issues or complaints, the person has no other issues or complaints other than the pain
+36,no other/new musculoskeletal complaints, the person has no other or new musculoskeletal complaints ***
+37,without major complaint, the person is without major complaint
+38,no significant compliants, the person has no significant complaints at this time
+39,no sexual complaints, the person has no sexual complaints ***
+40,no acute complaints, the person has no acute complaints at this time
+41,no gynecologic complaints, the person has no gynecologic complaints ***
+42,no further complaints, the person has no further complaints at this time
+43,denies complaints, the person denies any complaints of pain
+44,complaint is severe, the person's complaint is severe
+0,denies numbness or tingling into their extremities, the person denies numbness or tingling into their extremities
+1,denies headache and back pain, the person denies having headache and back pain
+2,denies suicidal ideation, the person denies having suicidal thoughts
+3,denies acute suicidality, the person denies any thoughts or plans of suicide
+4,insomnia denied, the person denies having insomnia ***
+5,"denies: fever, dry eyes, dry mouth, leg swelling, shortness of breath, constipation, involuntary urine"," the person denies having fever, dry eyes, dry mouth, leg swelling, shortness of breath, constipation, involuntary urine"
+6,"denies : fever, weight loss, weight gain"," the person denies having any fever, weight loss, or weight gain."
+7,"denies : impaired vision, changes in vision", the person denies any changes in his vision.
+8,"denies : headaches, vertigo", the person denies having headaches or vertigo ***
+9,denies chest pain, the person denies having chest pain
+10,denies fever, the person denies having a fever
+11,denies numbness, the person denies numbness in his extremities
+12,denies pain, the person denies pain ***
+13,denies nausea, the person denies having nausea ***
+14,denies numbness or tingling, the person denies numbness or tingling in his extremities
+15,denies anxiety, the person denies having anxiety ***
+16,denies chills, the person denies having chills ***
+17,denies headache, the person denies having a headache
+18,denies fever chills, the person denies having fever or chills ***
+19,denies dizziness, the person denies having any dizziness ***
+20,denies fevers, the person denies having any fevers ***
+21,denies tobacco, the person denies tobacco use
+22,denies syncope, the person denies syncope ***
+23,denies weight loss, the person denies any weight loss
+24,denies sob, the person denies sob
+25,denies nausea vomiting, the person denies having nausea or vomiting
+26,denies change in appetite, the person denies change in appetite
+27,denies fatigue, the person denies having fatigue ***
+28,denies chest pain or shortness, the person denies chest pain or shortness of breath.
+29,denies chest pain or shortness of, the person denies chest pain or shortness of breath.
+30,denies headaches, the person denies having headaches
+31,denies anxiety depression, the person denies having anxiety or depression
+32,denies cough, the person denies having a cough
+33,denies itching, the person denies itching
+34,denies weight gain, the person denies any weight gain
+35,denies thoughts of, the person denies having thoughts of harming himself ***
+36,denies complaints or symptoms, the person denies any complaints or symptoms
+37,denies vision changes, the person denies any changes in his vision
+38,denies fevers chills, the person denies having any fevers or chills ***
+39,denies dysuria, the person denies having dysuria ***
+40,deniesod suicidal, the person denies any suicidal thoughts.
+41,denies breast, the person denies having any breast pain
+42,denies symptoms, the person denies any symptoms ***
+43,denies hallucinations, the person denies having hallucinations
+44,denies neck pain, the person denies having neck pain
+0,denies syncope melena, the person denies syncope melena
+1,denies syncope melena hematuria, the person denies syncope melena hematuria
+2,denies chest pain no shortness, the person denies chest pain or shortness of breath.
+3,denies chills denies, the person denies having chills or any other changes in his condition
+4,denies chills denies fatigue, the person denies having chills or fatigue
+5,denies fatiguedenies, the person denies being fatigued.
+6,denies fatiguedenies fever, the person denies having fatigue or fever.
+7,denies fever denies, the person denies having a fever or any other symptoms ***
+8,denies pain at, the person denies pain at the moment
+9,denies pain at this time, the person denies pain at this time
+10,denies any, the person denies any change in his condition
+11,no rash, the person has no rash ***
+12,no fever, the person has no fever ***
+13,no cough, the person has no cough ***
+14,no sinus, the person has no sinus tachycardia ***
+15,no blood, the person has no blood in his stool ***
+16,no hives, the person has no hives ***
+17,no edema, the person has no edema ***
+18,no nerve, the person has no nerve pain ***
+19,no weight, the person has no weight on him ***
+20,no nausea, the person has no nausea ***
+21,no chills, the person has no chills ***
+22,no fevers, the person has no fevers ***
+23,no throat, the person has no throat pain ***
+24,no melena, the person has no melena ***
+25,no muscle, the person has no muscle pain ***
+26,no trauma, the person has no trauma ***
+27,no breast, the person has no breast cancer ***
+28,no eczema, the person has no eczema ***
+29,no kidney, the person has no kidney ***
+30,no ulcers, the person has no ulcers on his body
+31,no hearing, the person has no hearing ***
+32,no dysuria, the person has no dysuria ***
+33,no itching, the person has no itching ***
+34,no dyspnea, the person has no dyspnea ***
+35,no fatigue, the person has no fatigue ***
+36,no myalgia, the person has no myalgia ***
+37,no syncope, the person has no syncope ***
+38,no changes, the person's condition has no change
+39,no history, the person has no history of the disease ***
+40,no vomiting, the person has not vomited in the past few hours
+41,no headache, the person has no headache ***
+42,no wheezing, the person has no wheezing ***
+43,no diarrhea, the person has no diarrhea ***
+44,no eye pain, the person has no eye pain
+0,no diplopia, the person has no diplopia ***
+1,no ear pain, the person has no ear pain ***
+2,no seizures, the person has not had any seizures
+3,no pressure, the person has no pressure on his condition
+4,no pruritus, the person has no pruritus ***
+5,no fever or, the person has no fever or chills ***
+6,no tinnitus, the person has no tinnitus ***
+7,no weakness, the person has no weakness in his condition
+8,no problems, the person has no problems ***
+9,no bload in, the person has no blood in his stool ***
+10,no erythema, the person has no erythema ***
+11,no bruising, the person has no bruising on his body
+12,no change in, the person's condition has no change in ***
+13,no shortness, the person has no shortness of breath ***
+14,no hematuria, the person has no hematuria ***
+15,no headaches, the person has no headaches ***
+16,no change of, the person's condition has no change
+17,no back pain, the person has no back pain ***
+18,no trauma or, the person has no trauma or other conditions that could be causing the pain
+19,no endocrine, the person has no endocrine problems
+20,no hair loss, the person has not shown any hair loss ***
+21,no allergies, the person has no allergies ***
+22,no cough and, the person has no cough and is feeling better.
+23,no dizziness, the person has no dizziness ***
+24,no ear kahan, ***
+25,no neck pain, the person has no neck pain
+26,no abrasions, the person has no abrasions on his body
+27,no hip joint, the person has no hip joint ***
+28,no postnasal, the person has no postnasal drip ***
+29,no chest pain, the person has no chest pain ***
+30,no sinus pain, the person has no sinus pain ***
+31,no hemoptysis, the person has no hemoptysis
+32,no history of, the person has no history of back pain
+33,no knae joint, ***
+34,no nerve pain, the person has no nerve pain
+35,no weight loss, the person has not lost any weight
+36,no blood clots, the person has no blood clots in his system
+37,no pressure ho, the person has no pressure ho
+38,no muscle pain, the person has no muscle pain
+39,no paresthesia, the person has no paresthesia ***
+40,no hematologic, the person has no hematologic changes in his condition
+41,no shortness of, the person has no shortness of breath ***
+42,no hearing loss, the person has no hearing loss
+43,no eye symptoms, the person has no eye symptoms
+44,no ear symptoms, the person has no ear symptoms
+0,no palpitations, the person has no palpitations ***
+1,no constipation, the person has no constipation ***
+2,no night sweats, the person has no night sweats ***
+3,no allergies to, the person has no allergies to anything
+4,no seizures all, the person has not had any seizures all day
+5,no fevers nasal, the person has no fevers or nasal discharge
+6,no cye symptoms, the person has no cye symptoms
+7,no skin changes, the person has no skin changes
+8,no fatigue eyes, the person has no fatigue eyes
+9,no paipitations, the person has no paipitations in his condition
+10,no diplopia and, the person has no diplopia and his condition is improving
+11,no neck symptoms, the person has no neck symptoms
+12,no genitourinary, ***       key words: no change -> sentence:  the person's condition has no change
+13,no skin symptoms, the person has no skin symptoms
+14,no kidney stones, the person has no kidney stones ***
+15,no limb weakness, the person has no limb weakness
+16,no changesreview, the person's condition has no change
+17,no head symptoms, the person has no head symptoms
+18,no headache eyes, the person has no headache or eyes pain
+19,no ankle swelling, the person has no ankle swelling ***
+20,no itching rashes, the person has no itching rashes
+21,no tenderness, the person has no tenderness in his back
+22,"denied fever, chills, weight gain"," the person denied having any fever, chills, or weight gain."
+23,no concerning symptoms, the person has no concerning symptoms at this time
+24,feeling well, the person is feeling well today
+25,feeling better, the person is feeling better and his condition is improving
+26,feeling much better, the person is feeling much better and his condition is improving
+27,feeling somewhat better, the person is feeling somewhat better today
+28,feeling pretty good, the person is feeling pretty good considering his condition
+29,feeling consistently improved, the person feeling consistently improved and has a good prognosis
+30,feeling better mentally, the person is feeling better mentally
+31,feeling really good, the person feeling really good and his condition is improving
+32,feeling pretty decent, the person feeling pretty decent today
+33,feeling good, the person is feeling good today
+34,feeling good otherwise, the person is feeling good otherwise
+35,feeling better overall, the person is feeling better overall
+36,feeling better over, the person has been feeling better over the past few days
+37,feels much better, the person feels much better and his condition has improved
+38,feeling better since, the person has been feeling better since the last checkup
+39,feeling better each, the person is feeling better each day
+40,feels better, the person feels better and his condition has improved
+41,feels better than, the person feels better than he did before
+42,feeling fine, the person is feeling fine and has no pain ***
+43,feels great, the person feels great and his condition is improving
+44,feeling confident, the person is feeling confident about his condition
+0,feel safe, the person feels safe to go home
+1,doing well, the person is doing well in his condition
+2,getting well, the person is getting well
+3,feeling poorly, the person is feeling poorly today
+4,feeling more depressed, the person has been feeling more depressed lately
+5,feeling more sad, the person has been feeling more sad lately
+6,feeling very dizzy, the person is feeling very dizzy and needs to see a doctor ***
+7,feeling very emotional, the person is feeling very emotional about his condition
+8,feeling less connected, the person is feeling less connected to his friends and family.
+9,feeling so sick, the person is feeling so sick that he can't move.
+10,feeling so overwhelmed, the person is feeling so overwhelmed with his condition
+11,feeling tired, the person is feeling tired today
+12,feeling nervous, the person is feeling nervous about his condition
+13,feeling afraid, the person is feeling afraid of the situation
+14,feeling bad, the person is feeling bad today
+15,feeling bad about, the person is feeling bad about his/her condition
+16,feeling dizzy, the person is feeling dizzy and lightheaded
+17,feeling faint, the person is feeling faint and his blood pressure is low.
+18,feeling depressed, the person is feeling depressed because of his condition
+19,feeling anxious, the person is feeling anxious about his condition
+20,feeling fatigued, the person is feeling fatigued
+21,feeling worse, the person is feeling worse
+22,feeling afraid as, the person is feeling afraid as he is at high risk
+23,feeling hopeless, the person is feeling hopeless about his condition
+24,feels constant, the person feels constant pain in his back
+25,feels constant dizziness, the person feels constant dizziness and it is affecting his daily activities.
+26,feeling fatigued since, the person has been feeling fatigued since the surgery
+27,feeling sick, the person is feeling sick and needs to see a doctor
+28,feeling frustrated, the person is feeling frustrated because of the lack of progress
+29,feeling sluggish, the person is feeling sluggish and has no energy
+30,feeling somewhat, the person is feeling somewhat better today
+31,feeling other, the person is feeling other emotions such as anxiety or depression.
+32,feeling very, the person is feeling very frustrated with his condition
+33,feeling delirious, the person is feeling delirious and needs medical attention
+34,feeling strongly, the person is feeling strongly about his condition
+35,feeling strongly about, the person is feeling strongly about the pain he is in.
+36,feeling fetal, the person is feeling fetal ***
+37,feeling fetal movement, the person is feeling fetal movement
+38,feeling frustrated knowing, the person is feeling frustrated knowing that his pain is not going away ***
+39,feeling confident driving, the person is feeling confident driving again
+40,feeling anxious every, the person is feeling anxious every day
+41,feeling irritated, the person is feeling irritated
+42,feeling looser, the person's feeling looser in his condition
+43,feeling funny, the person is feeling funny ***
+44,feeling much more, the person feeling much more better today
+0,feels fairly tight, the person's muscles feels fairly tight
+1,feeling low, the person is feeling low today
+2,feeling worthless, the person has been feeling worthless lately
+3,feeling worse than, the person is feeling worse than when he first came in ***
+4,feeling anymore, the person does not feel any pain anymore
+5,feeling consistently, the person has been feeling consistently better since the last checkup
+6,feeling fuzzy, the person is feeling fuzzy and out of it.
+7,feeling sore, the person is feeling sore today
+8,feeling sad, the person is feeling sad today
+9,feeling clearer, the person feeling clearerheaded and more alert
+10,feeling jumpy, the person is feeling jumpy
+11,feeling puffy, the person is feeling puffy and has a lot of fluid retention
+12,feeling short, the person is feeling short of breath
+13,feeling short of, the person is feeling short of breath
+14,feels depressed, the person feels depressed because of his condition
+15,feeling horrible, the person is feeling horrible and needs help
+16,feels tight, the person's muscles feel tight
+17,feels tight yet, the person's condition feels tight yet
+18,feeling ured, the person is feeling ured
+19,feeling psychological, the person is feeling psychological pain
+20,feeling psychological distress, the person is feeling psychological distress from his condition
+21,feels shortness, the person feels shortness of breath.
+22,feels shortness of, the person feels shortness of breath.
+23,feeling okay, the person is feeling okay
+24,feeling fatigued will, the person is feeling fatigued and will continue to do so for some time
+25,feeling overwhelmed, the person is feeling overwhelmed by the situation
+26,feeling stiff, the person is feeling stiff in his back
+27,feeling mild, the person is feeling mild pain ***
+28,feeling mild rectal, the person is feeling mild rectal pain
+29,feeling same effects, the person is feeling the same effects as before
+30,felt little interest, the person felt little interest in what was going on around him
+31,well-healing, the person is well-healing from his surgery
+32,well healed, the person's wound is well healed
+33,healing, the person's wound is healing well
+34,healed, the person's wound has healed ***
+35,healing well, the person is healing well from his surgery
+36,fully healed, the person's wound has fully healed
+37,completely healed, the person's wound has completely healed.
+38,healing nicely, the person's wound is healing nicely
+39,heal completely, the person will heal completely in time
+40,healing primary, the person's primary healing is progressing well
+41,healed surgical, the person's surgical wound has healed
+42,healing well without, the person is healing well without any complications
+43,healing pelvic, the person's pelvic is healing well
+44,healing pelvic ring, the person's pelvic ring is healing well
+0,healing well with, the person is healing well with the help of medication
+1,healing primary diagnosis, the person's primary diagnosis is healing
+2,healing really, the person's healing is really good
+3,appropriately healing, the person's wound is appropriately healing
+4,healing right, the person is healing right on schedule
+5,healing right knee, the person is healing from an injury to his right knee
+6,healed surgical incision, the person's surgical incision has healed
+7,heal well, the person's wound is healing well
+8,healed well, the person's wound has healed well
+9,healing appropriately, the person's wound is healing appropriately
+10,well healing, the person is well healing from his surgery
+11,healed anterior incision, the person's anterior incision has healed ***
+12,weill healed, the person's wound has well healed
+13,healed now, the person's wound has healed now
+14,heal more slowly, the person's condition will heal more slowly than average
+15,healing well after, the person is healing well after the surgery
+16,healing wise, the person is healing wise but has a long way to go
+17,healing wise pattern, the person's healing pattern is progressing well
+18,healing really well, the person is healing really well from his surgery
+19,healed surgical scars, the person's surgical scars have healed
+20,healing nicely with, the person is healing nicely with the help of medication
+21,nicely healed, the person's wound has nicely healed
+22,healed completely, the person's wound has healed completely
+23,healing duodenal ulcer, the person is healing from a duodenal ulcer
+24,healing beautifully, the person's wound is healing beautifully
+25,healing beautifully without, the person is healing beautifully without any complications.
+26,healing well extremities, the person's extremities are healing well
+27,totally healed, the person is totally healed from his injury
+28,healing primary diagnasis, the person is healing from his primary diagnasis
+29,nearly healed, the person's wound is nearly healed
+30,healed aside, the person's wound has healed aside ***
+31,healing surgical incision, the person's surgical incision is healing well
+32,healed intraoral wounds, the person has healed intraoral wounds
+33,wound healing, the person's wound is healing well
+34,has been healed, the person has been healed of his condition
+35,healing very well, the person is healing very well from his injury
+36,would remains healed, the person's wound would remain healed with proper care
+37,remains healed, the person's wound remains healed
+38,nonhealing, the person has a nonhealing wound on his arm
+39,happy with progress, the person is happy with the progress he has made
+40,happy with the progress, the person is happy with the progress he has made
+41,happy with her progress, the person is happy with her progress
+42,happy with his progresss, the person is happy with his progress
+43,happy with the outcome of his surgery, the person is happy with the outcome of his surgery
+44,happy with the results, the person is happy with the results of the treatment
+0,happy with his overall progress, the person is happy with his overall progress
+1,happy with his current progress, the person is happy with his current progress
+2,happy with her current progress, the person is happy with her current progress
+3,happy with current progress, the person is happy with the current progress of his condition
+4,much improved, the person's condition has much improved
+5,significantly improved, the person's condition has significantly improved
+6,improved significantly, the person's condition has improved significantly
+7,slightly improved, the person's condition has slightly improved
+8,show improvement, the person needs to show improvement in his condition
+9,improved much, the person's condition has improved much
+10,improved considerably, the person's condition has improved considerably
+11,continued improvement, the person has continued improvement in his condition
+12,shown improvements, the person has shown improvements and is doing well
+13,reports improvement, the person reports improvement in his condition
+14,improve significantly, the person's condition has improved significantly
+15,making improvements, the person is making improvements in his condition
+16,further improve, the person needs to further improve in his condition
+17,thereby improve, the person's condition has no change
+18,greally improved, the person has greatly improved in his condition
+19,improve daily, the person's condition improves daily
+20,seen improvement, the person has seen improvement in his condition
+21,marked improvement, the person has marked improvement in his condition
+22,report improvement, the person should report any improvement to his doctor
+23,demonstrates improvement, the person demonstrates improvement in his condition
+24,likely improve, the person's condition is likely to improve
+25,sx improved, the person's condition has improved
+26,greatly improved, the person's condition has greatly improved
+27,gradually improve, the person's condition gradually improves
+28,overall improved, the person's condition has overall improved
+29,describes improvement, the person describes improvement in his condition
+30,have improvement, the person has improvement in his condition
+31,improved fairly, the person's condition has improved fairly
+32,had improvements, the person has had improvements in his condition
+33,gradually improved, the person's condition gradually improved
+34,substantially improved, the person's condition has substantially improved
+35,consistently improved, the person has shown consistent improvement in his condition
+36,continued improvements, the person has continued improvements in his condition
+37,slowly improved, the person slowly improved in his condition
+38,noticed improvement, the person has noticed improvement in his condition
+39,improved gradually, the person's condition has gradually improved
+40,improved daily, the person's condition has improved daily
+41,improvement postoperatively, the person has shown improvement postoperatively
+42,improvement thereafter, the person's condition has improved since then
+43,clearly improved, the person's condition has clearly improved
+44,improved initially," the person's condition improved initially, but has since worsened."
+0,see improvement, the person's condition has seen some improvement
+1,really improved, the person's condition has really improved
+2,improved greatly, the person's condition has greatly improved
+3,demonstrate improvement, the person demonstrate improvement in his condition
+4,somewhat improved, the person's condition has somewhat improved
+5,improved quickly, the person's condition improved quickly
+6,satisfied with the surgical, the person is satisfied with the surgical result
+7,satisfied with results of her surgery, the person is satisfied with the results of her surgery
+8,satisfied with results of his surgery, the person is satisfied with the results of his surgery
+9,satisfied with results of the surgery, the person is satisfied with the results of the surgery
+10,highly satisfied with the current results, the person is highly satisfied with the current results
+11,satisfied with the current results, the person is satisfied with the current results of his condition
+12,pleased with her results, the person is pleased with her results
+13,pleased with his results, the person is pleased with his results so far
+14,satisfied with the surgery and outcame, the person is satisfied with the surgery and outcome
+15,satisfied with the surgery, the person is satisfied with the results of the surgery
+16,satisfied with the outcame, the person is satisfied with the outcame of the surgery
+17,improve range of motion, the person's range of motion has greatly improved
+18,demonstrate good progress, the person has demonstrated good progress in his condition
+19,good progress, the person has shown good progress in his condition
+20,good tolerance, the person has good tolerance for the medication ***
+21,pain is well controlled, the person controls his pain very well
+22,relief in their symptoms, the person has found relief in their symptoms
+23,symptoms have improved from surgery, the person's symptoms have improved from surgery
+24,improved from surgery, the person's condition has improved from surgery
+25,symptoms have improved, the person's symptoms have improved
+26,good condition, the person is in good condition
+27,unsatisfactory pain relief, the person has unsatisfactory pain relief
+28,having difficulties with pain, the person is having difficulties with pain control
+29,normal exam inspection, the person's inspection is normal during the exam
+30,normal skin exam, the person's skin exam is normal
+31,normal meniscus exam, the person has a normal meniscus exam
+32,normal exam, the person has a normal exam ***
+33,examination was normal, the person's examination was normal
+34,no abnormal, the person has no abnormal findings on his MRI scan
+35,exam was normal, the person's exam was normal
+36,normal physical exam, the person has a normal physical exam
+37,normal genitourinary exam findings, the person has normal genitourinary exam findings.
+38,normal exam findings, the person has normal exam findings ***
+39,normal examination, the person's examination is normal
+40,inspection normal, the person's inspection is normal
+41,exam normal, the person's exam is normal
+42,good range of motion, the person has a good range of motion in his condition
+43,normal range of motion, the person has a normal range of motion in his joints
+44,active range of motion, the person has an active range of motion in his condition
+0,normal mood and affect, the person's mood and affect are normal
+1,good judgement, the person has good judgement in his condition
+2,motion looks excellent, the person's motion looks excellent
+3,good recreation, the person enjoys good recreation
+4,range of motion: good, the person has a good range of motion
+5,normal mood, the person is in a normal mood
+6,normal insight, the person has normal insight into his condition
+7,normal judgment, the person has normal judgment and is not at risk.
+8,unremarkable exam findings, the person's exam findings are unremarkable
+9,abnormal exam, the person has an abnormal exam
+10,anxious and agitated, the person is anxious and agitated
+11,severe rash, the person has a severe rash on his body
+12,severe tbi, the person has a severe tbi ***
+13,no weight gain, the person has not gained any weight recently
+14,have weight loss, the person has weight loss as a symptom
+15,no significant weight gain or loss, the person has not gained or lost any significant amount of weight
+16,energy is good, the person has good energy levels
+17,appetite is good, the person has a good appetite
+18,good stability, the person's condition is good stability
+19,normal appetite, the person has a normal appetite
+20,negative for appetite change, the person's appetite has not changed
+21,denies mood changes, the person denies any mood changes
+22,gain weight, the person has gained weight ***
+23,helped with her anxiety and depression significantly, the person's anxiety and depression have helped significantly
+24,normal mental status, the person has a normal mental status
+25,anxiety is better, the person's anxiety is better
+26,mental status normal, the person's mental status is normal
+27,good energy, the person has good energy levels today
+28,good appetite, the person has a good appetite for food.
+29,change in appetite, the person has a change in appetite
+30,appetite change, the person has an appetite change
+31,decreased appetite, the person has a decreased appetite ***
+32,appetite loss, the person has appetite loss ***
+33,mood changes, the person's mood changes are well noted and documented
+34,depressed mood, the person has a depressed mood
+35,disorder with depressed mood, the person has a disorder with depressed mood
+36,bad headache, the person has a bad headache
+37,no complications, the person has no complications from the surgery
+38,done well postoperatively, the person has done well postoperatively
+39,has done well, the person has done well in his condition
+40,getting well after surgery, the person is getting well after surgery
+41,doing great postop, the person is doing great postop
+42,doing well post operative, the person is doing well post operative
+43,recovering well from surgery, the person is recovering well from surgery
+44,no postoperative complications, the person had no postoperative complications
+0,denies any other complications, the person denies any other complications ***
+1,complications: none, the person has no complications from his condition
+2,still recovering, the person is still recovering from his surgery
+3,currently recovering, the person is currently recovering from his surgery
+4,is recovering from, the person is recovering from his surgery
+5,currently recovering from, the person is currently recovering from an injury
+6,postoperative nausea and vomiting, the person has postoperative nausea and vomiting
+7,no need for routine medical oncology follow up, the person has no need for routine medical oncology follow up
+8,no need for follow up, the person has no need for follow up
+9,no need for flup, the person has no need for flup
+10,no surgical flup needed, the person doesn't need surgical flup
+11,no flup needed, the person doesn't need any more medication ***
+12,no follow up needed, the person does not need to follow up with the doctor
+13,i think she can return to work, I think she can return to work given her good progress.
+14,would like to return, the person would like to return to his/her regular activities
+15,would like to return to work, the person would like to return to work but his doctor advised against it.
+16,fit for duty with no restrictions, the person is fit for duty with no restrictions
+17,fit for duty, the person is fit for duty
+18,plans to return, the person plans to return to his normal activities soon
+19,can rtw, the person can return to work
+20,ready for rtw, the person is ready for rtw
+21,patient requests rtw, the patient requests to return to work
+22,pt can rtw, the person can return to work
+23,requests return to work, the person requests to return to work
+24,eager to rtw, the person is eager to rtw
+25,would like to be able to return to work as soon as possible, the person would like to be able to return to work as soon as possible.
+26,would like to be able to return to work, the person would like to be able to return to work as soon as possible.
+27,try to return to work, the person is trying to return to work
+28,should be able to return, the person should be able to return to his normal activities soon
+29,should return to work, the person should return to work in the next few days
+30,released to normal activities, the person has been released to normal activities
+31,not fit for duty, the person is not fit for duty because of his condition
+32,not released to return to work, the person has not been released to return to work
+33,not released to return, the person has not been released to return to his previous activity
+34,delayed rtw, the person's return to work is delayed due to his condition
+35,limits her ability to return to work, the person's condition limits her ability to return to work
+36,limits his ability to return to work, the person's condition limits his ability to return to work
+37,limited ability to stand and walk, the person has limited ability to stand and walk.
+38,impacts your ability to return to work, the person's ability to return to work has been impacted by the pain.
+39,impacts her ability to return to work, the person's condition impacts her ability to return to work
+40,impacts his ability to return to work, the person's condition impacts his ability to return to work
+41,not let him return, the person's condition has not let him return to his usual activities
+42,not let her return, the person's condition has not let her return to her previous state
+43,should not return, the person should not return to work for now
+44,not return to work, the person has not returned to work yet
