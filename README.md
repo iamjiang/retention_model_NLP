@@ -177,7 +177,7 @@ def get_gpt3_complete(keyword,max_tokens=15,temperature=0):
       model="text-davinci-002",
       prompt=[f"given the key words below, generate a medical related only sentence ### \
       key words: intractable back pain -> sentence: the person has intractable back pain ***  \
-      key words: at high risk -> sentence:  the person's condition has no change  *** \
+      key words: at high risk -> sentence:  the person's condition is at high risk  *** \
       key words: 10 pain -> sentence:  the person has a rating of 10 pain  *** \
       key words: no change -> sentence:  the person's condition has no change *** \
       key words: pain is well controlled -> sentence:  the person control his pain ver well *** \
