@@ -5,7 +5,7 @@
 <br/>
 (3)  NLP model to predict the multiple classes of email subtype. The pretrained language model like Bert, Roberta model were explored to predict the subtype of email textbody. All codes are stored in the **multi-class** folder <br/>
 <br/>
-(4) GPT3 model to generate a complete sentence from a keyword.  All codes are stored in **auto-complete-sentence** folder
+(4) GPT3 model to generate a complete sentence from a keyword.  All codes are stored in **auto-complete-sentence** folder <br/>
 <br/>
 (5) prompt-based zero shot learning to predict sentiment polarity of emails.  All codes are stored in **zero-shot-learning** folder
 <br/>
